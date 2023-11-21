@@ -1,40 +1,59 @@
+import { useEffect, useState } from 'react';
+import Filter from './components/Filter';
+import Header from './components/Header';
+import axios from 'axios';
+
+
+
 function App() {
+
+  const [movies, setMovies] = useState([])
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://movie-challenge-api-xpand.azurewebsites.net/api/movies")
+        setMovies(response.data.content)
+      } catch (err) {
+        setError(err)
+      }
+    }
+    fetchData()
+  }, [])
+
+  console.log(movies)
+
   return (
     <div className="app">
-      {/* Header */}
-      <nav></nav>
-      <header>
-        <h1>Movie ranking</h1>
-      </header>
-      {/*  */}
-      {/* Filter buttons */}
-      <div className="filter-container">
-        <button className="filter-btn">Top 10 Revenue</button>
-        <button className="filter-btn"> Top 10 Revenue per Year</button>
-      </div>
-      {/*  */}
+      <Header />
+      <Filter />
       {/* Table */}
       <div className='table-container'>
-        <table>
+        {movies ? <table className='table-content'>
           <thead>
-            <tr className='container'>
-              <th className='ranking'>RANKING</th>
-              <th className='title'>TITLE</th>
+            <tr>
+              <th>RANKING</th>
+              <th>TITLE</th>
               <th>YEAR</th>
               <th>REVENUE</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th className='ranking'>1</th>
-              <td className='title'>The Lion King</td>
-              <td>2019</td>
-              <td>$100000</td>
-              <td>olho</td>
-            </tr>
+            {movies.map((movie) => (
+              <tr key={movie.id}>
+                <td>{movie.rank}</td>
+                <td>{movie.title}</td>
+                <td>{movie.year}</td>
+                <td>${movie.revenue}</td>
+                <td>olho</td>
+              </tr>
+            ))}
           </tbody>
         </table>
+          :
+          <h2>{error}</h2>}
       </div>
 
       {/*  */}
