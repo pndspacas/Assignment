@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import Header from './components/Header';
 import axios from 'axios';
-import eye from "./assets/eye.png"
+import Table from './components/Table';
 
 
 
@@ -10,6 +10,7 @@ function App() {
 
   const [movies, setMovies] = useState([])
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +19,8 @@ function App() {
         setMovies(response.data.content)
       } catch (err) {
         setError(err)
+      } finally {
+        setLoading(false);
       }
     }
     fetchData()
@@ -29,38 +32,10 @@ function App() {
     <div className="app">
       <Header />
       <Filter />
-      {/* Table */}
-      <div className='table-container'>
-        {movies ? <table className='table-content'>
-          <thead>
-            <tr>
-              <th>RANKING</th>
-              <th>TITLE</th>
-              <th>YEAR</th>
-              <th>REVENUE</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {movies.map((movie) => (
-              <tr key={movie.id}>
-                <td>{movie.rank}</td>
-                <td>{movie.title}</td>
-                <td>{movie.year}</td>
-                {movie.revenue ? <td>${movie.revenue}</td>
-                  : <td>No Data</td>}
-                <td onClick={() => console.log("Clicked")}><img src={eye} alt="eye" /></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-          :
-          <h2>{error}</h2>}
-      </div>
-
-      {/*  */}
+      <Table movies={movies} error={error} loading={loading} />
     </div>
-  );
+  )
+
 }
 
 export default App;
