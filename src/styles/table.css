@@ -1,19 +1,18 @@
 .table-container {
     position: relative;
-    width: 938px;
-    height: 557px;
     left: 214px;
     top: 46px;
+    
 }   
 
 .table-content {
     border-collapse: collapse;
     width: 938px;
-    
+    height: 557px;
 }
 
+
 .table-content thead tr {
-    text-align: center;
     font: normal normal bold 10px/20px Roboto;
     letter-spacing: 0px;
     color: #0B749B;
@@ -36,8 +35,8 @@
 
 .table-container thead tr th:nth-child(1), 
 .table-container tbody tr td:nth-child(1) {
-    width:80px;
-    text-align: center;
+    width: 80px;
+    text-align: center
 }
 
 

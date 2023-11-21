@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import Header from './components/Header';
 import axios from 'axios';
+import eye from "./assets/eye.png"
 
 
 
@@ -46,8 +47,9 @@ function App() {
                 <td>{movie.rank}</td>
                 <td>{movie.title}</td>
                 <td>{movie.year}</td>
-                <td>${movie.revenue}</td>
-                <td>olho</td>
+                {movie.revenue ? <td>${movie.revenue}</td>
+                  : <td>No Data</td>}
+                <td onClick={() => console.log("Clicked")}><img src={eye} alt="eye" /></td>
               </tr>
             ))}
           </tbody>
