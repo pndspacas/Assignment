@@ -1,14 +1,13 @@
 import eye from "../assets/eye.png"
-import InfiniteScroll from 'react-infinite-scroll-component'
 
-const Table = ({ movies, error, loading }) => {
+
+const Table = ({ movies, error }) => {
     return (
         <>
+
             <div className='table-container'>
-                {loading ? (
-                    <div className='spinner-border text-secondary role="status"'></div>
-                ) : error ? (
-                    <p>Error: {error.message}</p>
+                {error ? (
+                    <p>Error: There is no more data</p>
                 ) : movies ? (<table className='table-content'>
                     <thead>
                         <tr>
@@ -33,7 +32,7 @@ const Table = ({ movies, error, loading }) => {
                     </tbody>
                 </table>
                 ) : null}
-            </div >
+            </div>
         </>
     )
 }
