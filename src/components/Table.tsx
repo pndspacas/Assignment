@@ -1,7 +1,7 @@
 import eye from "../assets/eye.png"
 
 
-const Table = ({ movies, error }) => {
+const Table = ({ movies, error, handleClick }) => {
     return (
         <>
 
@@ -26,7 +26,7 @@ const Table = ({ movies, error }) => {
                                 <td>{movie.year}</td>
                                 {movie.revenue ? <td>${movie.revenue}</td>
                                     : <td>No Data</td>}
-                                <td><img src={eye} alt="eye" /></td>
+                                <td onClick={handleClick}><img src={eye} alt="eye" /></td>
                             </tr>
                         ))}
                     </tbody>

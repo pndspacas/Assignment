@@ -4,6 +4,7 @@ import Header from './components/Header';
 import axios from 'axios';
 import Table from './components/Table';
 import Loader from './components/Loader';
+import Description from './components/Description';
 
 
 
@@ -15,6 +16,8 @@ function App() {
   const [page, setPage] = useState(0);
   const itemsPerPage = 10;
   const totalItems = 1000;
+
+  const [hide, setHide] = useState(true)
 
 
 
@@ -35,6 +38,14 @@ function App() {
   }, []);
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies.id}`);
+      console.log(response)
+    };
+
+    fetchData();
+  }, []);
 
 
   useEffect(() => {
@@ -69,20 +80,27 @@ function App() {
       setLoading(true)
       setPage((prev) => prev + 1);
     }
-  };
+  }
 
   console.log(movies)
 
+  const handleClick = () => {
+    console.log("hey")
+  }
+
+
   return (
-    <div className="app">
+    <div className='app'>
       <Header />
       <Filter />
-      <Table movies={movies} error={error} />
-      {loading && <Loader />}
+      <Table movies={movies} error={error} handleClick={handleClick} />
+      <Description />
+      <Loader />
 
     </div>
   )
 
 }
+
 
 export default App;

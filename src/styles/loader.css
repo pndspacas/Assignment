@@ -1,0 +1,17 @@
+.loader-container {
+    position: relative;
+    left: 214px;
+    top: 50px;
+    width: 938px;
+    
+
+}
+
+.loader-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+}
+
