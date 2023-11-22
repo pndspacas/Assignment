@@ -1,46 +1,52 @@
 import close from "../assets/close.png"
-import line from "../assets/line.png"
 
-const Description = () => {
+const Description = ({ handleClick }) => {
     return (
         <div className='description-container'>
-            <div>
-                <div className='title'>
-                    <h2>Star Wars</h2>
-                    <div className='close-btn'>
-                        <p><img src={close} alt="close" /></p>
-                        <p>Close</p>
-                    </div>
+            <div className='description-content'>
+                <div className='test'>
+                    <div className='content'>
+                        <div className='title'>
+                            <h2>Star Wars</h2>
+                            <div className='close-btn'>
+                                <img src={close} alt='close'
+                                    onClick={handleClick} />
+                                <p>CLOSE</p>
+
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Year</h3>
+                            <p>2015</p>
+                            <h3>Genre</h3>
+                            <p>Action, Adventure, Sci-Fi</p>
+                            <h3>Description</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum saepe esse tempore! Sit, consequatur voluptatibus quisquam nesciunt a temporibus enim reiciendis? Sint rerum est sed illum obcaecati nemo aliquid earum.</p>
+                            <div className='director-container'>
+                                <div>
+                                    <h3>Director</h3>
+                                    <p>J.J Abrams</p>
+                                </div>
+                                <div>
+                                    <h3>Actors</h3>
+                                    <p>Harrison Ford</p>
+                                </div>
+                            </div>
+                            <h3>Run Time</h3>
+                            <p>121min</p>
+                            <h3>Rating</h3>
+                            <p>8.1</p>
+                            <h3>Votes</h3>
+                            <p>757074</p>
+                            <h3>Revenue</h3>
+                            <p>$709000</p>
+                            <h3>Metascore</h3>
+                            <p>76</p>
+                        </div>
+                    </div >
                 </div>
-                <img src={line} alt="line" />
-                <h3>Year</h3>
-                <p>2015</p>
-                <h3>Genre</h3>
-                <p>Action, Adventure, Sci-Fi</p>
-                <h4>Description</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum saepe esse tempore! Sit, consequatur voluptatibus quisquam nesciunt a temporibus enim reiciendis? Sint rerum est sed illum obcaecati nemo aliquid earum.</p>
-                <div className='director-container'>
-                    <div>
-                        <h5>Director</h5>
-                        <p>J.J Abrams</p>
-                    </div>
-                    <div>
-                        <h5>Actors</h5>
-                        <p>Harrison Ford</p>
-                    </div>
-                </div>
-                <h5>Run Time</h5>
-                <p>121min</p>
-                <h5>Rating</h5>
-                <p>8.1</p>
-                <h5>Votes</h5>
-                <p>757074</p>
-                <h5>Revenue</h5>
-                <p>$709000</p>
-                <h5>Metascore</h5>
-                <p>76</p>
             </div>
-        </div >
+        </div>
     )
 }
 

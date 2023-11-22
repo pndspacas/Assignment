@@ -17,7 +17,8 @@ function App() {
   const itemsPerPage = 10;
   const totalItems = 1000;
 
-  const [hide, setHide] = useState(true)
+  const [show, setShow] = useState(false)
+  const [movieDetail, setMovieDetail] = useState()
 
 
 
@@ -38,14 +39,23 @@ function App() {
   }, []);
 
 
-  useEffect(() => {
+  const fetchData = useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies.id}`);
-      console.log(response)
+      if (movies.length > 0) {
+        try {
+          // Fetch details for the first movie (example)
+          const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies[0].id}`);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error fetching movie details:', error);
+        }
+      }
     };
 
     fetchData();
-  }, []);
+  }, [movies]);
+
+
 
 
   // useEffect(() => {
@@ -85,20 +95,17 @@ function App() {
   console.log(movies)
 
   const handleClick = () => {
-    setHide(!hide)
+    setShow(!show)
   }
-
-  console.log(hide)
-
 
   return (
     <div className='app'>
       <Header />
       <Filter />
       <Table movies={movies} error={error} handleClick={handleClick} />
-      <Description />
+      {show && <Description handleClick={handleClick} />}
 
-      {/* <Loader /> */}
+      <Loader />
 
     </div>
   )

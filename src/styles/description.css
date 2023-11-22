@@ -1,5 +1,16 @@
-.description-container {
-position: sticky;
+.description-container{
+position:absolute;
+top: 0px;
+left: 0px;
+width: 1366px;
+height: 768px;
+background: #000000 0% 0% no-repeat padding-box;
+background: rgba(0, 0, 0, 0.2);
+}
+
+
+.description-content {
+position: relative;
 top: 65px;
 left: 309px;
 width: 748px;
@@ -7,31 +18,107 @@ height: 682px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 20px 40px #01243366;
 opacity: 1;
-border: 1px solid red;
 }
 
 .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 32px;
 
 }
 
 .close-btn {
     text-align: center;
-    
-   
 }
+
+.close-btn:hover {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    align-self: center;
+    gap: 8px;
+}
+
+.close-btn:hover {
+    color: black;
+}
+
+.close-btn img {
+    background: transparent url('../assets/close.png') 0% 0% no-repeat padding-box;
+}
+
+
+.close-btn p{
+text-align:left;
+font: normal normal normal 8px/16px Roboto;
+letter-spacing: 0.64px;
+color: #718FA2;
+opacity: 1;
+margin: 0 auto;
+}
+
+
 .director-container {
     display: flex;
     gap:90px
-    
+
+}
+
+.director-container p {
+    text-align: left;
+    font: normal normal medium 16px/19px Roboto;
+    letter-spacing: 0px;
+    color: #00BAFF;
+    opacity: 1;
 }
 
 h2 {
+position: relative;
 text-align: center;
 font: normal normal 300 32px/38px Roboto;
 letter-spacing: 0px;
 color: #164E78;
 opacity: 1;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: -16px;
+    left: 0%;
+    width: 38%;
+    margin-top: px;
+    background: transparent url('../assets/line.png') 0% 0% no-repeat padding-box;
+    border: 1px solid #21B3CF;
+    opacity: 1;
+}
+
+.content {
+    width: 690px;
+
+}
+
+.test {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+text-align: left;
+font: normal normal normal 14px/17px Roboto;
+letter-spacing: 0px;
+color: #78849EB9;
+opacity: 1;
+margin-top: 20px;
+}
+
+p {
+    text-align: left;
+font: normal normal medium 16px/19px Roboto;
+letter-spacing: 0px;
+color: #78849E;
+opacity: 1;
+font-weight: 600;
 }
