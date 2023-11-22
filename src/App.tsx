@@ -48,45 +48,47 @@ function App() {
   }, []);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
-        const newMovies = response.data.content;
-        setMovies(prev => [...prev, ...newMovies])
-        setLoading(false)
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
+  //       const newMovies = response.data.content;
+  //       setMovies(prev => [...prev, ...newMovies])
+  //       setLoading(false)
+  //     } catch (error) {
+  //       setError(error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, [page]);
+  //   fetchData();
+  // }, [page]);
 
 
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } =
-      document.documentElement;
+  // const handleScroll = () => {
+  //   const { scrollTop, clientHeight, scrollHeight } =
+  //     document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setLoading(true)
-      setPage((prev) => prev + 1);
-    }
-  }
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setLoading(true)
+  //     setPage((prev) => prev + 1);
+  //   }
+  // }
 
   console.log(movies)
 
   const handleClick = () => {
-    console.log("hey")
+    setHide(!hide)
   }
+
+  console.log(hide)
 
 
   return (
@@ -95,7 +97,8 @@ function App() {
       <Filter />
       <Table movies={movies} error={error} handleClick={handleClick} />
       <Description />
-      <Loader />
+
+      {/* <Loader /> */}
 
     </div>
   )

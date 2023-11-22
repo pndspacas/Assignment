@@ -1,0 +1,37 @@
+.description-container {
+position: sticky;
+top: 65px;
+left: 309px;
+width: 748px;
+height: 682px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 20px 40px #01243366;
+opacity: 1;
+border: 1px solid red;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.close-btn {
+    text-align: center;
+    
+   
+}
+.director-container {
+    display: flex;
+    gap:90px
+    
+}
+
+h2 {
+text-align: center;
+font: normal normal 300 32px/38px Roboto;
+letter-spacing: 0px;
+color: #164E78;
+opacity: 1;
+}

@@ -6,6 +6,7 @@ import "./styles/header.css"
 import "./styles/filter.css"
 import "./styles/table.css"
 import "./styles/loader.css"
+import "./styles/description.css"
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
