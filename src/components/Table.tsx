@@ -1,4 +1,5 @@
-import eye from "../assets/eye.png"
+import eye from "../assets/eye.svg"
+
 
 interface Movie {
     id: number,

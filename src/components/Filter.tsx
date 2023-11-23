@@ -1,4 +1,5 @@
-import reset from "../assets/reset.png";
+import reset from "../assets/reset.svg"
+
 
 interface Props {
     handleSort: () => void;
@@ -20,7 +21,7 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
     return (
         <>
             <div className="filter-container">
-                <button
+                <button disabled={clickedYear}
                     onClick={() => {
                         handleClicked();
                         handleSort();
@@ -32,7 +33,7 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                     <button onClick={handleClickedYear}
                         className={clickedYear ? "clicked" : "filter-btn-year"} > Top 10 Revenue {selectedYear}</button>
                 ) : (
-                    <button className={clickedYear ? "clicked" : "filter-btn-year"}
+                    <button disabled={clicked} className={clickedYear ? "clicked" : "filter-btn-year"}
                         onClick={() => {
                             handleFocus();
                             handleClickedYear();
@@ -43,16 +44,20 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                     </button>
                 )}
                 {isFocused && (
-                    <div className="years-container">
-                        <h5>Select Year</h5>
-                        {Array.from({ length: 17 }, (_, index) => (
-                            <p key={index} onClick={() => handleYearSelection(2016 - index)}>
-                                {2016 - index}
-                            </p>
-                        ))}
+
+                    <div className='container-overlay'>
+                        <div className="years-container">
+                            <h5>Select Year</h5>
+                            {Array.from({ length: 17 }, (_, index) => (
+                                <p key={index} onClick={() => handleYearSelection(2016 - index)}>
+                                    {2016 - index}
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 )}
-                {clickedYear && <img src={reset} alt="reset" onClick={handleReset} />}
+                {clickedYear && !isFocused && <img src={reset} onClick={handleReset} />}
+                {clicked && <img src={reset} onClick={handleReset} />}
             </div >
         </>
     );

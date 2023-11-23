@@ -3,15 +3,14 @@
     left: 214px;
     top: 46px;
     width: 938px;
-    
-    
-}   
+
+}
 
 .table-content {
     border-collapse: collapse;
     width: 938px;
     height: 472px;
-    
+
 }
 
 
@@ -23,7 +22,7 @@
     text-align: left;
     border-bottom: 1px solid #0B749B;
 
-    
+
 }
 
 .table-content tbody tr {
@@ -37,18 +36,8 @@
     opacity: 1;
 }
 
-.table-container thead tr th:nth-child(1), 
+.table-container thead tr th:nth-child(1),
 .table-container tbody tr td:nth-child(1) {
     width: 80px;
     text-align: center;
 }
-
-
-
-
-
-
-
-
-
-

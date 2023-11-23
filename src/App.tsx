@@ -125,8 +125,6 @@ function App() {
       setClicked(true);
       setIsFocused(false);
       //setMovies([...originalMovies])
-    } else {
-      setClicked(false);
     }
   };
 
@@ -134,8 +132,6 @@ function App() {
     if (!clickedYear) {
       setClickedYear(true);
       setClicked(false);
-    } else {
-      setClickedYear(false);
     }
   };
 
