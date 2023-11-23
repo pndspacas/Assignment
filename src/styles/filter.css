@@ -23,8 +23,7 @@
     padding: 8px 12px 8px 12px;
 }
 
-.filter-btn:focus,
-.filter-btn-year:focus {
+.clicked {
     background: #00BAFF 0% 0% no-repeat padding-box;
     border: 1px solid #78849E66;
     border-radius: 20px;
@@ -35,6 +34,7 @@
     color: black;
     opacity: 1;
     outline: none;
+    padding: 8px 12px 8px 12px;
 }
 
 .years-container p {

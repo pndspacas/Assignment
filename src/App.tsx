@@ -18,50 +18,54 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(0);
   const [show, setShow] = useState(false)
+  const [isFocused, setIsFocused] = useState(false);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [clicked, setClicked] = useState(false)
+  const [clickedYear, setClickedYear] = useState(false)
   const itemsPerPage = 10;
   const totalItems = 1000;
 
 
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
-      const newMovies = response.data.content;
-      setMovies(newMovies)
-      setOriginalMovies(newMovies)
-      setLoading(false)
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  }
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
+  //     const newMovies = response.data.content;
+  //     setMovies(newMovies)
+  //     setOriginalMovies(newMovies)
+  //     setLoading(false)
+  //   } catch (error) {
+  //     setError(error);
+  //     setLoading(false);
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchData();
-  }, [])
+  // useEffect(() => {
+  //   fetchData();
+  // }, [])
 
-  useEffect(() => {
-    setMoviesId(movies.map(movie => movie.id))
-  }, [movies]);
+  // useEffect(() => {
+  //   setMoviesId(movies.map(movie => movie.id))
+  // }, [movies]);
 
 
-  useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const movieDetails = await Promise.all(
-          movies.map(async (movie) => {
-            const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
-            return response.data
-          })
-        );
-        setMovieDetails(movieDetails);
-      } catch (error) {
-        console.error('Error fetching movie details:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchMovieDetails = async () => {
+  //     try {
+  //       const movieDetails = await Promise.all(
+  //         movies.map(async (movie) => {
+  //           const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
+  //           return response.data
+  //         })
+  //       );
+  //       setMovieDetails(movieDetails);
+  //     } catch (error) {
+  //       console.error('Error fetching movie details:', error);
+  //     }
+  //   };
 
-    fetchMovieDetails();
-  }, [movies]);
+  //   fetchMovieDetails();
+  // }, [movies]);
 
 
   // useEffect(() => {
@@ -110,12 +114,47 @@ function App() {
 
   const handleReset = () => {
     setMovies([...originalMovies])
+    setSelectedYear("")
+    setIsFocused(false)
+    setClicked(false)
+    setClickedYear(false)
+
   }
+
+  const handleFocus = () => {
+    setIsFocused(!isFocused);
+  };
+
+  const handleYearSelection = (year: number) => {
+    setSelectedYear(year);
+    setIsFocused(false)
+  };
+
+  const handleClicked = () => {
+    if (!clicked) {
+      setClicked(true);
+      setClickedYear(false)
+      setIsFocused(false); // Deselect clickedYear if it was selected
+    } else {
+      setClicked(false); // Deselect clicked if it was already selected
+    }
+  };
+
+  const handleClickedYear = () => {
+    if (!clickedYear) {
+      setClickedYear(true);
+      setClicked(false); // Deselect clicked if it was selected
+    } else {
+      setClickedYear(false); // Deselect clickedYear if it was already selected
+    }
+  };
+
 
   return (
     <div className='app'>
       <Header />
-      <Filter handleSort={handleSort} handleReset={handleReset} />
+      <Filter handleSort={handleSort} handleReset={handleReset} isFocused={isFocused} selectedYear={selectedYear} handleFocus={handleFocus} handleYearSelection={handleYearSelection}
+        handleClicked={handleClicked} handleClickedYear={handleClickedYear} clicked={clicked} clickedYear={clickedYear} />
       <Table movies={movies} error={error} handleClick={handleClick} />
       {show && <Description handleClick={handleClick} movieDetails={movieDetails} />}
       <Loader />
