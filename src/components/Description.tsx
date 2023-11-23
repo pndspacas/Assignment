@@ -12,7 +12,8 @@ const Description: React.FC<Props> = ({ handleClick }) => {
                 <div className='test'>
                     <div className='content'>
                         <div className='title'>
-                            <h2>Star Wars</h2>
+                            <h2>Star Wars: The Force Awakens</h2>
+                            <span></span>
                             <div className='close-btn'>
                                 <img src={close} alt='close'
                                     onClick={handleClick} />
@@ -20,23 +21,27 @@ const Description: React.FC<Props> = ({ handleClick }) => {
 
                             </div>
                         </div>
-                        <div>
+                        <div className='full-content'>
                             <h3>Year</h3>
                             <p>2015</p>
                             <h3>Genre</h3>
                             <p>Action, Adventure, Sci-Fi</p>
                             <h3>Description</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum saepe esse tempore! Sit, consequatur voluptatibus quisquam nesciunt a temporibus enim reiciendis? Sint rerum est sed illum obcaecati nemo aliquid earum.</p>
-                            <div className='director-container'>
-                                <div>
-                                    <h3>Director</h3>
-                                    <p>J.J Abrams</p>
-                                </div>
-                                <div>
-                                    <h3>Actors</h3>
-                                    <p>Harrison Ford</p>
+                            <p>Thirty years after the Galactic Civil War, the First Order has risen from the fallen Galactic Empire and seeks to end the New Republic. The Resistance, backed by the Republic and led by General Leia Organa, opposes the First Order. Leia searches for her brother, Luke Skywalker, who has gone missing.</p>
+                            <div>
+                                <div className='director-container'>
+                                    <div>
+                                        <h3>Director</h3>
+                                        <p>J.J Abrams</p>
+                                    </div>
+                                    <div>
+                                        <h3>J. J. Abrams</h3>
+                                        <p>Harrison Ford Mark Hamill Carrie Fisher Adam Driver</p>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className='rest'>
                             <h3>Run Time</h3>
                             <p>121min</p>
                             <h3>Rating</h3>
@@ -51,7 +56,7 @@ const Description: React.FC<Props> = ({ handleClick }) => {
                     </div >
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
