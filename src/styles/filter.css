@@ -1,14 +1,12 @@
 .filter-container {
-    position: relative;
-    top: 42px;
-    left: 214px;
-    height: 56px;
     opacity: 1;
+    width: 75%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
-
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .filter-btn,
@@ -64,7 +62,7 @@
 .years-container {
     position: absolute;
     top: 150px;
-    left: 500px;
+    left: 530px;
     width: 178px;
     height: 483px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -72,17 +70,20 @@
     opacity: 1;
     cursor: pointer;
 
+
 }
 
 .container-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    /* width: 1366px; */
-    width: 1366px;
-    height: 768px;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -99,9 +100,4 @@
 
 img {
     cursor: pointer;
-}
-
-img:hover {
-    transition-delay: 0.1s;
-    transform: rotate(300deg);
 }

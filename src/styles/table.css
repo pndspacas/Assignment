@@ -1,16 +1,13 @@
 .table-container {
-    position: relative;
-    left: 214px;
-    top: 46px;
-    width: 938px;
-
+    width: 75%;
+    margin: 0 auto;
 }
 
 
 .table-content {
     border-collapse: collapse;
-    width: 938px;
-    height: 472px;
+    width: 100%;
+    overflow: auto;
 
 }
 
@@ -51,9 +48,4 @@
 .table-container tbody tr td:nth-child(1) {
     width: 80px;
     text-align: center;
-}
-
-.loading-container {
-    position: fixed;
-    font-size: 1px;
 }

@@ -14,61 +14,61 @@ interface MovieDetails {
 }
 
 interface Props {
-    handleClick: () => void
+    handleClickClose: () => void
     movieDetails: MovieDetails[]
 }
 
-const Description: React.FC<Props> = ({ handleClick, movieDetails }) => {
+const Description: React.FC<Props> = ({ handleClickClose, movieDetails }) => {
     return (
         <div className='description-container'>
             <div className='description-content'>
                 <div className='test'>
-                    {movieDetails.map((movie) => {
+                    {movieDetails && (
                         <div className='content'>
                             <div className='title'>
-                                <h2>{movie.title}</h2>
+                                <h2>{movieDetails.title}</h2>
                                 <span></span>
                                 <div className='close-btn'>
                                     <img src={close} alt='close'
-                                        onClick={handleClick} />
+                                        onClick={handleClickClose} />
                                     <p>CLOSE</p>
 
                                 </div>
                             </div>
                             <div className='full-content'>
                                 <h3>Year</h3>
-                                <p>{movie.year}</p>
+                                <p>{movieDetails.year}</p>
                                 <h3>Genre</h3>
-                                <p>{movie.genre}</p>
+                                <p>{movieDetails.genre}</p>
                                 <h3>Description</h3>
-                                <p>{movie.description}</p>
+                                <p>{movieDetails.description}</p>
                                 <div>
                                     <div className='director-container'>
                                         <div>
                                             <h3>Director</h3>
-                                            <p>{movie.director}</p>
+                                            <p>{movieDetails.director}</p>
                                         </div>
                                         <div>
                                             <h3>Actors</h3>
-                                            <p>{movie.actors}</p>
+                                            <p>{movieDetails.actors}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='rest'>
                                 <h3>Run Time</h3>
-                                <p>{movie.runtime}</p>
+                                <p>{movieDetails.runtime}</p>
                                 <h3>Rating</h3>
-                                <p>{movie.rating}</p>
+                                <p>{movieDetails.rating}</p>
                                 <h3>Votes</h3>
-                                <p>{movie.votes}</p>
+                                <p>{movieDetails.votes}</p>
                                 <h3>Revenue</h3>
-                                <p>${movie.revenue}</p>
+                                <p>${movieDetails.revenue}</p>
                                 <h3>Metascore</h3>
-                                <p>{movie.metascore}</p>
+                                <p>{movieDetails.metascore}</p>
                             </div>
                         </div >
-                    })}
+                    )}
 
                 </div>
             </div>
