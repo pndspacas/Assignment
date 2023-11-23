@@ -6,11 +6,11 @@
     opacity: 1;
     display: flex;
     align-items: center;
-    justify-content: start;
     gap: 10px;
 }
 
-.filter-btn {
+.filter-btn,
+.filter-btn-year {
     height: 30px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #78849E66;
@@ -23,7 +23,8 @@
     padding: 8px 12px 8px 12px;
 }
 
-.filter-btn:focus {
+.filter-btn:focus,
+.filter-btn-year:focus {
     background: #00BAFF 0% 0% no-repeat padding-box;
     border: 1px solid #78849E66;
     border-radius: 20px;
@@ -52,7 +53,6 @@
 
 
 .years-container {
-    display: none;
     position: absolute;
     left: 285px;
     top: 15px;
@@ -62,8 +62,10 @@
     box-shadow: 0px 12px 24px #01243366;
     opacity: 1;
     z-index: 1;
-    overflow: visible
+    overflow: visible;
+    cursor: pointer;
 }
+
 
 .years-container h5 {
     text-align: center;
@@ -74,4 +76,8 @@
     height: 14px;
     margin-top: 16px;
     margin-bottom: 18px;
+}
+
+img {
+    cursor: pointer
 }
