@@ -1,7 +1,20 @@
 import eye from "../assets/eye.png"
 
+interface Movie {
+    id: number,
+    rank: number
+    title: string,
+    year: number,
+    revenue?: number,
+}
 
-const Table = ({ movies, error, handleClick }) => {
+interface Props {
+    movies: Movie[],
+    handleClick: () => void,
+    error?: null
+}
+
+const Table: React.FC<Props> = ({ movies, error, handleClick }) => {
     return (
         <>
 
@@ -19,7 +32,7 @@ const Table = ({ movies, error, handleClick }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {movies.map((movie) => (
+                        {movies.map((movie: Movie) => (
                             <tr key={movie.id}>
                                 <td>{movie.rank}</td>
                                 <td>{movie.title}</td>

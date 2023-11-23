@@ -1,6 +1,11 @@
 import close from "../assets/close.png"
 
-const Description = ({ handleClick }) => {
+
+interface Props {
+    handleClick: () => void
+}
+
+const Description: React.FC<Props> = ({ handleClick }) => {
     return (
         <div className='description-container'>
             <div className='description-content'>
