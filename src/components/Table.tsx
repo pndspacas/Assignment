@@ -22,8 +22,8 @@ const Table: React.FC<Props> = ({ movies, error, handleClick, }) => {
 
             <div className='table-container'>
                 {error ? (
-                    <p>There is no data!</p>
-                ) : movies ? (<table className='table-content'>
+                    <h6>There is no data!</h6>
+                ) : movies.length > 0 ? (<table className='table-content'>
                     <thead>
                         <tr>
                             <th>RANKING</th>
@@ -46,7 +46,7 @@ const Table: React.FC<Props> = ({ movies, error, handleClick, }) => {
                         ))}
                     </tbody>
                 </table>
-                ) : null}
+                ) : <h6>There is no data</h6>}
             </div>
         </>
     )

@@ -2,12 +2,13 @@ import reset from "../assets/reset.svg"
 
 
 interface Props {
-    handleSort: () => void;
+    handleSortRevenue: () => void;
     handleReset: () => void;
     handleFocus: () => void;
     handleYearSelection: () => void;
     handleClicked: () => void
     handleClickedYear: () => void
+    handleSortYearAndRevenue: () => void,
     isFocused: boolean,
     selectedYear: number,
     clicked: boolean,
@@ -15,7 +16,7 @@ interface Props {
 
 }
 
-const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear }) => {
+const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear }) => {
 
 
     return (
@@ -24,7 +25,7 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                 <button disabled={clickedYear}
                     onClick={() => {
                         handleClicked();
-                        handleSort();
+                        handleSortRevenue();
                     }
                     } className={clicked ? "clicked" : "filter-btn-year"} >
                     Top 10 Revenue
@@ -37,6 +38,7 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                         onClick={() => {
                             handleFocus();
                             handleClickedYear();
+
                         }
                         }
                     >
@@ -49,7 +51,11 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                         <div className="years-container">
                             <h5>Select Year</h5>
                             {Array.from({ length: 17 }, (_, index) => (
-                                <p key={index} onClick={() => handleYearSelection(2016 - index)}>
+                                <p key={index}
+                                    onClick={() => {
+                                        handleYearSelection(2016 - index);
+                                        handleSortYearAndRevenue(2016 - index)
+                                    }}>
                                     {2016 - index}
                                 </p>
                             ))}

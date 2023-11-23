@@ -130,7 +130,7 @@ function App() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${0}&size=${5}`
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
       );
       const newMovies = response.data.content;
       const moviesId = newMovies.map((movie) => movie.id)
@@ -148,10 +148,6 @@ function App() {
     fetchData()
   }, [])
 
-
-  console.log("ID", moviesId)
-  console.log("Details", movieDetails)
-
   const fetchMovieDetails = async (movieId) => {
     setShow(!show);
     try {
@@ -159,15 +155,12 @@ function App() {
         `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
       );
       setMovieDetails(response.data);
-      console.log("movies", movies)
     } catch (error) {
       console.error('Error fetching movie details:', error);
     }
   };
 
-  console.log("Details", movieDetails)
-
-  const handleClick = async (movieId) => {
+  const handleClick = async (movieId: number) => {
     setShow(!show);
     fetchMovieDetails(movieId);
   };
@@ -189,10 +182,21 @@ function App() {
 
 
 
-  const handleSort = () => {
+  const handleSortRevenue = () => {
     const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
     setMovies(sortedMovies);
   };
+
+  const handleSortYearAndRevenue = (year) => {
+    const filteredMovies = movies.filter(movie => movie.year === year);
+
+    const sortedMovies = [...filteredMovies].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
+
+    setMovies(sortedMovies)
+
+  };
+
+  console.log(movies)
 
   const handleReset = () => {
     setMovies([...originalMovies]);
@@ -234,7 +238,8 @@ function App() {
     <div className="app">
       <Header />
       <Filter
-        handleSort={handleSort}
+        handleSortRevenue={handleSortRevenue}
+        handleSortYearAndRevenue={handleSortYearAndRevenue}
         handleReset={handleReset}
         isFocused={isFocused}
         selectedYear={selectedYear}
