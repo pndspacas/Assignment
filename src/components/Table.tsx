@@ -35,13 +35,13 @@ const Table: React.FC<Props> = ({ movies, error, handleClick, }) => {
                     </thead>
                     <tbody>
                         {movies.map((movie: Movie) => (
-                            <tr key={movie.id}>
+                            <tr className="movie-id" key={movie.id}>
                                 <td>{movie.rank}</td>
                                 <td>{movie.title}</td>
                                 <td>{movie.year}</td>
                                 {movie.revenue ? <td>${movie.revenue}</td>
                                     : <td>No Data</td>}
-                                <td onClick={handleClick}><img src={eye} alt="eye" /></td>
+                                <td onClick={() => handleClick(movie.id)}><img src={eye} alt="eye" /></td>
                             </tr>
                         ))}
                     </tbody>

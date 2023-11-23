@@ -5,7 +5,6 @@ import axios from 'axios';
 import Table from './components/Table';
 import Loader from './components/Loader';
 import Description from './components/Description';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -150,15 +149,17 @@ function App() {
   }, [])
 
 
+  console.log("ID", moviesId)
+  console.log("Details", movieDetails)
 
-  const fetchMovieDetails = async () => {
+  const fetchMovieDetails = async (movieId) => {
     setShow(!show);
     try {
-      const id = moviesId[0]
       const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${id}`
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
       );
       setMovieDetails(response.data);
+      console.log("movies", movies)
     } catch (error) {
       console.error('Error fetching movie details:', error);
     }
@@ -166,9 +167,9 @@ function App() {
 
   console.log("Details", movieDetails)
 
-  const handleClick = async () => {
+  const handleClick = async (movieId) => {
     setShow(!show);
-    fetchMovieDetails(); // Fetch details of the clicked movie
+    fetchMovieDetails(movieId);
   };
 
   // useEffect(() => {
@@ -229,9 +230,6 @@ function App() {
     setShow(!show)
   }
 
-
-
-
   return (
     <div className="app">
       <Header />
@@ -256,8 +254,5 @@ function App() {
   );
 }
 
-export default App;
-function async(arg0: string) {
-  throw new Error('Function not implemented.');
-}
+export default App
 
