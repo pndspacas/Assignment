@@ -40,28 +40,28 @@ function App() {
     fetchData();
   }, [])
 
-  // useEffect(() => {
-  //   setMoviesId(movies.map(movie => movie.id))
-  // }, [movies]);
+  useEffect(() => {
+    setMoviesId(movies.map(movie => movie.id))
+  }, [movies]);
 
 
-  // useEffect(() => {
-  //   const fetchMovieDetails = async () => {
-  //     try {
-  //       const movieDetails = await Promise.all(
-  //         movies.map(async (movie) => {
-  //           const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
-  //           return response.data
-  //         })
-  //       );
-  //       setMovieDetails(movieDetails);
-  //     } catch (error) {
-  //       console.error('Error fetching movie details:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        const movieDetails = await Promise.all(
+          movies.map(async (movie) => {
+            const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
+            return response.data
+          })
+        );
+        setMovieDetails(movieDetails);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+      }
+    };
 
-  //   fetchMovieDetails();
-  // }, [movies]);
+    fetchMovieDetails();
+  }, [movies]);
 
 
   // useEffect(() => {
