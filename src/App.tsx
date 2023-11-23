@@ -11,14 +11,13 @@ import Description from './components/Description';
 function App() {
 
   const [movies, setMovies] = useState([])
+  const [originalMovies, setOriginalMovies] = useState([])
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(0);
+  const [show, setShow] = useState(false)
   const itemsPerPage = 10;
   const totalItems = 1000;
-
-  const [show, setShow] = useState(false)
-  const [movieDetail, setMovieDetail] = useState()
 
 
 
@@ -28,6 +27,7 @@ function App() {
         const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
         const newMovies = response.data.content;
         setMovies(newMovies)
+        setOriginalMovies(newMovies)
         setLoading(false)
       } catch (error) {
         setError(error);
@@ -39,21 +39,18 @@ function App() {
   }, []);
 
 
-  const fetchData = useEffect(() => {
-    const fetchData = async () => {
-      if (movies.length > 0) {
-        try {
-          // Fetch details for the first movie (example)
-          const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies[0].id}`);
-          console.log(response.data);
-        } catch (error) {
-          console.error('Error fetching movie details:', error);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies.id}`);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching movie details:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [movies]);
+  //   fetchData();
+  // }, [movies]);
 
 
 
@@ -64,6 +61,7 @@ function App() {
   //       const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
   //       const newMovies = response.data.content;
   //       setMovies(prev => [...prev, ...newMovies])
+  //       setOriginalMovies(prev => [...prev, ...newMovies])
   //       setLoading(false)
   //     } catch (error) {
   //       setError(error);
@@ -76,32 +74,41 @@ function App() {
 
 
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  // const handleScroll = () => {
-  //   const { scrollTop, clientHeight, scrollHeight } =
-  //     document.documentElement;
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } =
+      document.documentElement;
 
-  //   if (scrollTop + clientHeight >= scrollHeight) {
-  //     setLoading(true)
-  //     setPage((prev) => prev + 1);
-  //   }
-  // }
-
-  console.log(movies)
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setLoading(true)
+      setPage((prev) => prev + 1);
+    }
+  }
 
   const handleClick = () => {
     setShow(!show)
   }
 
+  console.log(movies)
+
+  const handleSort = () => {
+    const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue)
+    setMovies(sortedMovies)
+  }
+
+  const handleReset = () => {
+    setMovies([...originalMovies])
+  }
+
   return (
     <div className='app'>
       <Header />
-      <Filter />
+      <Filter handleSort={handleSort} handleReset={handleReset} />
       <Table movies={movies} error={error} handleClick={handleClick} />
       {show && <Description handleClick={handleClick} />}
 
