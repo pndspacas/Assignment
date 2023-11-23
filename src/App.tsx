@@ -5,6 +5,7 @@ import axios from 'axios';
 import Table from './components/Table';
 import Loader from './components/Loader';
 import Description from './components/Description';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -94,6 +95,45 @@ function App() {
   //   }
   // }
 
+  const fetchData = async (pageNum) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNum}&size=${itemsPerPage}`
+      );
+      const newMovies = response.data.content;
+      if (pageNum === 1) {
+        setMovies(newMovies);
+        setOriginalMovies(newMovies);
+      } else {
+        setMovies((prevMovies) => [...prevMovies, ...newMovies]);
+        setOriginalMovies((prevOriginalMovies) => [
+          ...prevOriginalMovies,
+          ...newMovies,
+        ]);
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(`Fetching data for page ${page}`);
+    fetchData(page); // Fetch data on mount and when page changes
+  }, [page]);
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchData(page);
+    }
+  }, [page]);
+
   const handleClick = () => {
     setShow(!show);
   };
@@ -150,7 +190,14 @@ function App() {
         clicked={clicked}
         clickedYear={clickedYear}
       />
-      <Table movies={movies} error={error} handleClick={handleClick} />
+      <InfiniteScroll
+        dataLength={movies.length}
+        next={handleLoadMore}
+        hasMore={!loading}
+        loader={<Loader />}
+      >
+        <Table movies={movies} error={error} handleClick={handleClick} loading={loading} />
+      </InfiniteScroll>
       {show && (
         <Description handleClick={handleClick} movieDetails={movieDetails} />
       )}
