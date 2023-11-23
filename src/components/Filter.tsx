@@ -52,7 +52,7 @@ const Filter: React.FC<Props> = ({ handleSort, handleReset, isFocused, selectedY
                         ))}
                     </div>
                 )}
-                <img src={reset} alt="reset" onClick={handleReset} />
+                {clickedYear && <img src={reset} alt="reset" onClick={handleReset} />}
             </div >
         </>
     );

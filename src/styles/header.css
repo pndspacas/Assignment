@@ -1,25 +1,26 @@
 nav {
     position: relative;
-     top: 0px;
-     left: 0px;
-     width: 1366px;
-     height: 50px;
-     background: #012433 0% 0% no-repeat padding-box;
-     opacity: 1;
- }
- 
- header {
-     position: relative;
-     top: 24px;
-     left: 214px;
-     width: 150px;
-     height: 29px;
- }
- 
- h1 {
-     text-align: left;
-     font: normal normal normal 24px/12px Roboto;
-     letter-spacing: 0px;
-     color: #386071;
-     opacity: 1;
- }
+    top: 0px;
+    left: 0px;
+    width: 1366px;
+    height: 50px;
+    background: #012433 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+header {
+    position: relative;
+    top: 24px;
+    left: 214px;
+    width: 150px;
+    height: 29px;
+    margin-top: 15px;
+}
+
+h1 {
+    text-align: left;
+    font: normal normal normal 24px/12px Roboto;
+    letter-spacing: 0px;
+    color: #386071;
+    opacity: 1;
+}

@@ -6,26 +6,21 @@ import Table from './components/Table';
 import Loader from './components/Loader';
 import Description from './components/Description';
 
-
-
 function App() {
-
-  const [movies, setMovies] = useState([])
-  const [moviesId, setMoviesId] = useState([])
-  const [originalMovies, setOriginalMovies] = useState([])
-  const [movieDetails, setMovieDetails] = useState([])
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [movies, setMovies] = useState([]);
+  const [moviesId, setMoviesId] = useState([]);
+  const [originalMovies, setOriginalMovies] = useState([]);
+  const [movieDetails, setMovieDetails] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [clicked, setClicked] = useState(false)
-  const [clickedYear, setClickedYear] = useState(false)
+  const [clicked, setClicked] = useState(false);
+  const [clickedYear, setClickedYear] = useState(false);
   const itemsPerPage = 10;
   const totalItems = 1000;
-
-
 
   // const fetchData = async () => {
   //   try {
@@ -48,7 +43,6 @@ function App() {
   //   setMoviesId(movies.map(movie => movie.id))
   // }, [movies]);
 
-
   // useEffect(() => {
   //   const fetchMovieDetails = async () => {
   //     try {
@@ -67,7 +61,6 @@ function App() {
   //   fetchMovieDetails();
   // }, [movies]);
 
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -84,8 +77,6 @@ function App() {
 
   //   fetchData();
   // }, [page]);
-
-
 
   // useEffect(() => {
   //   window.addEventListener("scroll", handleScroll);
@@ -104,22 +95,21 @@ function App() {
   // }
 
   const handleClick = () => {
-    setShow(!show)
-  }
+    setShow(!show);
+  };
 
   const handleSort = () => {
-    const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue)
-    setMovies(sortedMovies)
-  }
+    const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue);
+    setMovies(sortedMovies);
+  };
 
   const handleReset = () => {
-    setMovies([...originalMovies])
-    setSelectedYear("")
-    setIsFocused(false)
-    setClicked(false)
-    setClickedYear(false)
-
-  }
+    setMovies([...originalMovies]);
+    setSelectedYear('');
+    setIsFocused(false);
+    setClicked(false);
+    setClickedYear(false);
+  };
 
   const handleFocus = () => {
     setIsFocused(!isFocused);
@@ -127,42 +117,50 @@ function App() {
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
-    setIsFocused(false)
+    setIsFocused(false);
   };
 
   const handleClicked = () => {
     if (!clicked) {
       setClicked(true);
-      setClickedYear(false)
-      setIsFocused(false); // Deselect clickedYear if it was selected
+      setIsFocused(false);
+      //setMovies([...originalMovies])
     } else {
-      setClicked(false); // Deselect clicked if it was already selected
+      setClicked(false);
     }
   };
 
   const handleClickedYear = () => {
     if (!clickedYear) {
       setClickedYear(true);
-      setClicked(false); // Deselect clicked if it was selected
+      setClicked(false);
     } else {
-      setClickedYear(false); // Deselect clickedYear if it was already selected
+      setClickedYear(false);
     }
   };
 
-
   return (
-    <div className='app'>
+    <div className="app">
       <Header />
-      <Filter handleSort={handleSort} handleReset={handleReset} isFocused={isFocused} selectedYear={selectedYear} handleFocus={handleFocus} handleYearSelection={handleYearSelection}
-        handleClicked={handleClicked} handleClickedYear={handleClickedYear} clicked={clicked} clickedYear={clickedYear} />
+      <Filter
+        handleSort={handleSort}
+        handleReset={handleReset}
+        isFocused={isFocused}
+        selectedYear={selectedYear}
+        handleFocus={handleFocus}
+        handleYearSelection={handleYearSelection}
+        handleClicked={handleClicked}
+        handleClickedYear={handleClickedYear}
+        clicked={clicked}
+        clickedYear={clickedYear}
+      />
       <Table movies={movies} error={error} handleClick={handleClick} />
-      {show && <Description handleClick={handleClick} movieDetails={movieDetails} />}
+      {show && (
+        <Description handleClick={handleClick} movieDetails={movieDetails} />
+      )}
       <Loader />
-
     </div>
-  )
-
+  );
 }
-
 
 export default App;
