@@ -11,7 +11,9 @@ import Description from './components/Description';
 function App() {
 
   const [movies, setMovies] = useState([])
+  const [moviesId, setMoviesId] = useState([])
   const [originalMovies, setOriginalMovies] = useState([])
+  const [movieDetails, setMovieDetails] = useState([])
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(0);
@@ -21,38 +23,45 @@ function App() {
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
-        const newMovies = response.data.content;
-        setMovies(newMovies)
-        setOriginalMovies(newMovies)
-        setLoading(false)
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
+      const newMovies = response.data.content;
+      setMovies(newMovies)
+      setOriginalMovies(newMovies)
+      setLoading(false)
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  }
 
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [])
+
+  // useEffect(() => {
+  //   setMoviesId(movies.map(movie => movie.id))
+  // }, [movies]);
 
 
   // useEffect(() => {
-  //   const fetchData = async () => {
+  //   const fetchMovieDetails = async () => {
   //     try {
-  //       const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movies.id}`);
-  //       console.log(response.data);
+  //       const movieDetails = await Promise.all(
+  //         movies.map(async (movie) => {
+  //           const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
+  //           return response.data
+  //         })
+  //       );
+  //       setMovieDetails(movieDetails);
   //     } catch (error) {
   //       console.error('Error fetching movie details:', error);
   //     }
   //   };
 
-  //   fetchData();
+  //   fetchMovieDetails();
   // }, [movies]);
-
-
 
 
   // useEffect(() => {
@@ -74,27 +83,25 @@ function App() {
 
 
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } =
-      document.documentElement;
+  // const handleScroll = () => {
+  //   const { scrollTop, clientHeight, scrollHeight } =
+  //     document.documentElement;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setLoading(true)
-      setPage((prev) => prev + 1);
-    }
-  }
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setLoading(true)
+  //     setPage((prev) => prev + 1);
+  //   }
+  // }
 
   const handleClick = () => {
     setShow(!show)
   }
-
-  console.log(movies)
 
   const handleSort = () => {
     const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue)
@@ -110,8 +117,7 @@ function App() {
       <Header />
       <Filter handleSort={handleSort} handleReset={handleReset} />
       <Table movies={movies} error={error} handleClick={handleClick} />
-      {show && <Description handleClick={handleClick} />}
-
+      {show && <Description handleClick={handleClick} movieDetails={movieDetails} />}
       <Loader />
 
     </div>
