@@ -32,9 +32,8 @@ const Description: React.FC<Props> = ({ handleClickClose, movieDetails }) => {
                                 <img src={close} alt='close'
                                     onClick={handleClickClose} />
                                 <p>CLOSE</p>
-
-                            </div>
-                        </div>
+                            </div >
+                        </div >
                         <div className='full-content'>
                             <h3>Year</h3>
                             <p>{movieDetails.year}</p>
@@ -67,11 +66,11 @@ const Description: React.FC<Props> = ({ handleClickClose, movieDetails }) => {
                             <h3>Metascore</h3>
                             <p>{movieDetails.metascore}</p>
                         </div>
-                    </div >
-                )}
+                    </div>
 
-            </div>
-        </div>
+                )}
+            </div >
+        </div >
 
     )
 }

@@ -25,9 +25,8 @@
 
 .title {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-
+    justify-content: space-between;
 }
 
 .close-btn {
@@ -98,10 +97,6 @@ span {
     opacity: 1;
 }
 
-.content {
-    width: 636px;
-
-}
 
 h3 {
     text-align: left;
@@ -123,4 +118,8 @@ p {
 
 .full-content {
     margin-top: 30px;
+}
+
+.full-content>p {
+    width: 650px;
 }

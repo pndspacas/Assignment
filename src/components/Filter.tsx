@@ -1,7 +1,12 @@
 import reset from "../assets/reset.svg"
 
+interface Years {
+    year: number,
+    id: number,
+}
 
 interface Props {
+    movieYears: Years[],
     handleSortRevenue: () => void;
     handleReset: () => void;
     handleFocus: () => void;
@@ -10,13 +15,13 @@ interface Props {
     handleClickedYear: () => void
     handleSortYearAndRevenue: () => void,
     isFocused: boolean,
-    selectedYear: number,
+    selectedYear: number | null,
     clicked: boolean,
     clickedYear: boolean
 
 }
 
-const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear }) => {
+const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear, movieYears }) => {
 
 
     return (
@@ -50,13 +55,13 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                     <div className='container-overlay'>
                         <div className="years-container">
                             <h5>Select Year</h5>
-                            {Array.from({ length: 17 }, (_, index) => (
-                                <p key={index}
+                            {movieYears.map((year) => (
+                                <p key={year.id}
                                     onClick={() => {
-                                        handleYearSelection(2016 - index);
-                                        handleSortYearAndRevenue(2016 - index)
+                                        handleYearSelection(year);
+                                        handleSortYearAndRevenue(year)
                                     }}>
-                                    {2016 - index}
+                                    {year}
                                 </p>
                             ))}
                         </div>

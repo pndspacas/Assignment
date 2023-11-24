@@ -19,7 +19,7 @@ function App() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
-  const itemsPerPage = 10;
+  const itemsPerPage = 1;
   const totalItems = 1000;
 
   // const fetchData = async () => {
@@ -39,33 +39,6 @@ function App() {
   //   fetchData();
   // }, [])
 
-
-  //MOVIES BY ID
-  // useEffect(() => {
-  //   setMoviesId(movies.map(movie => movie.id))
-  // }, [movies]);
-  // MOVIES BY ID
-
-
-  //NEED REFACTOR
-  // useEffect(() => {
-  //   const fetchMovieDetails = async () => {
-  //     try {
-  //       const movieDetails = await Promise.all(
-  //         movies.map(async (movie) => {
-  //           const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movie.id}`);
-  //           return response.data
-  //         })
-  //       );
-  //       setMovieDetails(movieDetails);
-  //     } catch (error) {
-  //       console.error('Error fetching movie details:', error);
-  //     }
-  //   };
-
-  //   fetchMovieDetails();
-  // }, [movies]);
-  //NEED REFACTOR
 
   //MOVIE INFINITE
   // useEffect(() => {
@@ -187,7 +160,7 @@ function App() {
     setMovies(sortedMovies);
   };
 
-  const handleSortYearAndRevenue = (year) => {
+  const handleSortYearAndRevenue = (year: number) => {
     const filteredMovies = movies.filter(movie => movie.year === year);
 
     const sortedMovies = [...filteredMovies].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
@@ -195,8 +168,6 @@ function App() {
     setMovies(sortedMovies)
 
   };
-
-  console.log(movies)
 
   const handleReset = () => {
     setMovies([...originalMovies]);
@@ -234,6 +205,11 @@ function App() {
     setShow(!show)
   }
 
+  const movieYears = movies
+    .map(movie => movie.year)
+    .filter((year, index, years) => years.indexOf(year) === index)
+    .sort((a, b) => b - a)
+
   return (
     <div className="app">
       <Header />
@@ -249,6 +225,7 @@ function App() {
         handleClickedYear={handleClickedYear}
         clicked={clicked}
         clickedYear={clickedYear}
+        movieYears={movieYears}
       />
       <Table movies={movies} error={error} handleClick={handleClick} />
       {show && (
