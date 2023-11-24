@@ -4,20 +4,22 @@ import Header from './components/Header';
 import axios from 'axios';
 import Table from './components/Table';
 import Description from './components/Description';
+import Footer from './components/Footer';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviesId, setMoviesId] = useState([]);
   const [originalMovies, setOriginalMovies] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
-  const [error, setError] = useState(null);
+  const [sidebar, setSidebar] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
   const itemsPerPage = 1000;
   const totalItems = 1000;
 
@@ -101,9 +103,9 @@ function App() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
-      );
+      // const response = await axios.get(
+      //   `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
+      // );
       const newMovies = response.data.content;
       const moviesId = newMovies.map((movie) => movie.id)
       setMovies(newMovies);
@@ -123,9 +125,9 @@ function App() {
   const fetchMovieDetails = async (movieId) => {
     setShow(!show);
     try {
-      const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
-      );
+      // const response = await axios.get(
+      //   `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
+      // );
       setMovieDetails(response.data);
     } catch (error) {
       console.error('Error fetching movie details:', error);
@@ -205,13 +207,13 @@ function App() {
     setShow(!show)
   }
 
+  const finished = movies.length === totalItems
+
   const movieYears = movies
     .map(movie => movie.year)
     .filter((year, index, years) => years.indexOf(year) === index)
     .sort((a, b) => b - a);
 
-
-  const [sidebar, setSidebar] = useState(false);
 
   const toggleSidebar = () => {
     setSidebar(!sidebar);
@@ -222,9 +224,18 @@ function App() {
     }
   };
 
+  const scrollToTop = () => {
+    const moveTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+  }
 
   return (
     <div className="app">
+
       <Header />
       <Filter
         handleSortRevenue={handleSortRevenue}
@@ -239,12 +250,14 @@ function App() {
         clicked={clicked}
         clickedYear={clickedYear}
         movieYears={movieYears}
+        toggleSidebar={toggleSidebar}
       />
       <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} />
+
       {show && (
         <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
       )}
-
+      <Footer scrollToTop={scrollToTop} />
     </div>
   );
 }

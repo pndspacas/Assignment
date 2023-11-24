@@ -1,4 +1,5 @@
 import reset from "../assets/reset.svg"
+import "../styles/filter.css"
 
 interface Years {
     year: number,
@@ -10,10 +11,11 @@ interface Props {
     handleSortRevenue: () => void;
     handleReset: () => void;
     handleFocus: () => void;
-    handleYearSelection: () => void;
+    handleYearSelection: (selectedYear: number) => void;
     handleClicked: () => void
     handleClickedYear: () => void
-    handleSortYearAndRevenue: () => void,
+    handleSortYearAndRevenue: (year: number) => void,
+    toggleSidebar: () => void
     isFocused: boolean,
     selectedYear: number | null,
     clicked: boolean,
@@ -21,7 +23,7 @@ interface Props {
 
 }
 
-const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear, movieYears }) => {
+const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, handleReset, isFocused, selectedYear, handleFocus, handleYearSelection, handleClicked, handleClickedYear, clicked, clickedYear, movieYears, toggleSidebar }) => {
 
 
     return (
@@ -35,6 +37,7 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                     } className={clicked ? "clicked" : "filter-btn-year"} >
                     Top 10 Revenue
                 </button>
+
                 {selectedYear ? (
                     <button onClick={handleClickedYear}
                         className={clickedYear ? "clicked" : "filter-btn-year"} > Top 10 Revenue {selectedYear}</button>
@@ -43,6 +46,7 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                         onClick={() => {
                             handleFocus();
                             handleClickedYear();
+                            toggleSidebar();
 
                         }
                         }
@@ -51,21 +55,26 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                     </button>
                 )}
                 {isFocused && (
+                    <>
+                        {movieYears.length > 1 ? <div className='container-overlay'>
+                            <div className="years-container">
+                                <h5>Select Year</h5>
+                                {movieYears.map((yearData: Years) => (
+                                    <p key={yearData.id}
+                                        onClick={() => {
+                                            handleYearSelection(yearData.year);
+                                            handleSortYearAndRevenue(yearData.year);
+                                            toggleSidebar();
+                                        }}>
+                                        {yearData.year}
+                                    </p>
+                                ))}
+                            </div>
 
-                    <div className='container-overlay'>
-                        <div className="years-container">
-                            <h5>Select Year</h5>
-                            {movieYears.map((year) => (
-                                <p key={year.id}
-                                    onClick={() => {
-                                        handleYearSelection(year);
-                                        handleSortYearAndRevenue(year)
-                                    }}>
-                                    {year}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
+                        </div > :
+                            <img src={reset} onClick={handleReset} />
+                        }
+                    </>
                 )}
                 {clickedYear && !isFocused && <img src={reset} onClick={handleReset} />}
                 {clicked && <img src={reset} onClick={handleReset} />}

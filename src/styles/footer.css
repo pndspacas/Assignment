@@ -1,0 +1,24 @@
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.footer-content p {
+    position: relative;
+    left: 20%;
+    font: normal normal normal 24px Roboto;
+    color: #386071;
+    opacity: 1;
+
+}

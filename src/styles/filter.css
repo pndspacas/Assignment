@@ -101,6 +101,12 @@ img {
     cursor: pointer;
 }
 
+.no-year {
+    position: absolute;
+    top: 220px;
+
+}
+
 @media (min-width: 1440px) {
     .years-container {
 

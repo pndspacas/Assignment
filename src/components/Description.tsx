@@ -1,5 +1,6 @@
 import close from "../assets/close.svg"
 import line from "../assets/line.svg"
+import "../styles/description.css"
 
 interface MovieDetails {
     title: string,
@@ -10,16 +11,18 @@ interface MovieDetails {
     actors: string,
     runtime: number,
     votes: number,
+    rating: number,
     revenue: number,
     metascore: number
 }
 
 interface Props {
     handleClickClose: () => void
+    toggleSidebar: () => void
     movieDetails: MovieDetails
 }
 
-const Description: React.FC<Props> = ({ handleClickClose, movieDetails, toggleSidebar }) => {
+const Description: React.FC<Props> = ({ handleClickClose, toggleSidebar, movieDetails }) => {
     return (
         <div className='description-container'>
             <div className='description-content'>
@@ -70,10 +73,10 @@ const Description: React.FC<Props> = ({ handleClickClose, movieDetails, toggleSi
                                 <p>{movieDetails.votes}</p>
                                 <h3>Revenue</h3>
                                 {movieDetails.revenue ? <p>${movieDetails.revenue}
-                                </p> : <p>No Data</p>}
+                                </p> : <p>There is no data</p>}
                                 <h3>Metascore</h3>
                                 {movieDetails.metascore ? <p>{movieDetails.metascore}</p>
-                                    : <p>No Data</p>}
+                                    : <p>There is no data</p>}
                             </div>
                         </>
 
