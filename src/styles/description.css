@@ -1,5 +1,5 @@
 .description-container {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -13,20 +13,28 @@
 
 
 .description-content {
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 748px;
+    width: 900px;
     height: 682px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 20px 40px #01243366;
     opacity: 1;
 }
 
+
 .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-height: 50px;
+}
+
+.line-container {
+    margin-top: -15px;
+    max-height: 30px;
 }
 
 .close-btn {
@@ -34,7 +42,7 @@
     flex-direction: column;
     align-items: center;
     align-self: center;
-    color: black;
+    max-height: 40px;
 }
 
 .close-btn:hover {
@@ -43,19 +51,18 @@
 }
 
 .close-btn:hover p {
-
     color: black;
     font-weight: 900;
 
 }
 
-
-
-.close-btn img {
-    background: transparent url('../assets/close.svg') 0% 0% no-repeat padding-box;
-    cursor: pointer
+.content {
+    width: 800px;
 }
 
+.close-btn img {
+    cursor: pointer
+}
 
 .close-btn p {
     text-align: left;
@@ -64,11 +71,18 @@
     color: #718FA2;
     opacity: 1;
     margin: 0 auto;
+
+
+
 }
 
 .director-container {
     display: flex;
-    gap: 90px;
+    align-items: center;
+    gap: 30px;
+    height: 80px;
+    max-width: 650px;
+
 }
 
 .director-container p {
@@ -76,25 +90,28 @@
     letter-spacing: 0px;
     color: #00BAFF;
     opacity: 1;
+    max-height: 50px;
+}
+
+.director-container div:nth-child(1) p {
+    height: 50px;
+    max-width: 250px;
+}
+
+.director-container div:nth-child(2) p {
+    height: 50px;
+    max-width: 450px;
 }
 
 h2 {
     position: relative;
     text-align: center;
-    font: normal normal 300 32px/38px Roboto;
+    font: normal normal 300 26px/38px Roboto;
     letter-spacing: 0px;
     color: #164E78;
     opacity: 1;
-}
+    max-height: 50px;
 
-span {
-    content: "";
-    position: absolute;
-    width: 5%;
-    margin-top: 55px;
-    background: transparent url('../assets/line.svg') 0% 0% no-repeat padding-box;
-    border: 1px solid #21B3CF;
-    opacity: 1;
 }
 
 
@@ -104,7 +121,7 @@ h3 {
     letter-spacing: 0px;
     color: #78849EB9;
     opacity: 1;
-    height: 10px;
+    max-height: 10px;
 }
 
 p {
@@ -114,12 +131,19 @@ p {
     color: #78849E;
     opacity: 1;
     font-weight: 600;
+    max-height: 70px;
 }
 
-.full-content {
-    margin-top: 30px;
+.top-content {
+    margin-top: 10px;
+    max-height: 500px;
 }
 
-.full-content>p {
+.top-content>p {
     width: 650px;
+}
+
+.bottom-content {
+    margin-top: -15px;
+    max-height: 500px;
 }

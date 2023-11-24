@@ -3,7 +3,6 @@ import Filter from './components/Filter';
 import Header from './components/Header';
 import axios from 'axios';
 import Table from './components/Table';
-import Loader from './components/Loader';
 import Description from './components/Description';
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
-  const itemsPerPage = 1;
+  const itemsPerPage = 1000;
   const totalItems = 1000;
 
   // const fetchData = async () => {
@@ -138,6 +137,7 @@ function App() {
     fetchMovieDetails(movieId);
   };
 
+
   // useEffect(() => {
   //   console.log(`Fetching data for page ${page}`);
   //   fetchData(page); // Fetch data on mount and when page changes
@@ -208,7 +208,20 @@ function App() {
   const movieYears = movies
     .map(movie => movie.year)
     .filter((year, index, years) => years.indexOf(year) === index)
-    .sort((a, b) => b - a)
+    .sort((a, b) => b - a);
+
+
+  const [sidebar, setSidebar] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebar(!sidebar);
+    if (!sidebar) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  };
+
 
   return (
     <div className="app">
@@ -227,11 +240,11 @@ function App() {
         clickedYear={clickedYear}
         movieYears={movieYears}
       />
-      <Table movies={movies} error={error} handleClick={handleClick} />
+      <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} />
       {show && (
-        <Description handleClickClose={handleClickClose} movieDetails={movieDetails} />
+        <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
       )}
-      {/* <Loader /> */}
+
     </div>
   );
 }

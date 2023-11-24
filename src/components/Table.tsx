@@ -1,6 +1,5 @@
 import eye from "../assets/eye.svg"
 
-
 interface Movie {
     id: number,
     rank: number
@@ -16,8 +15,9 @@ interface Props {
     error?: null,
 }
 
-const Table: React.FC<Props> = ({ movies, error, handleClick, }) => {
+const Table: React.FC<Props> = ({ movies, error, handleClick, toggleSidebar }) => {
     return (
+
         <>
 
             <div className='table-container'>
@@ -41,12 +41,21 @@ const Table: React.FC<Props> = ({ movies, error, handleClick, }) => {
                                 <td>{movie.year}</td>
                                 {movie.revenue ? <td>${movie.revenue}</td>
                                     : <td>No Data</td>}
-                                <td onClick={() => handleClick(movie.id)}><img src={eye} alt="eye" /></td>
+                                <td onClick={() => {
+                                    handleClick(movie.id);
+                                    toggleSidebar()
+                                }}><img src={eye} alt="eye" /></td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                ) : <h6>There is no data</h6>}
+                ) :
+                    <div className='loader'>
+                        <div className='spinner-border text-secondary role="status"'>
+
+                        </div>
+                    </div>}
+
             </div>
         </>
     )

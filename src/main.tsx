@@ -11,6 +11,5 @@ import "./styles/description.css"
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
-    {/* <App2 /> */}
   </React.StrictMode>,
 )
