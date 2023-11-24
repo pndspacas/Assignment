@@ -21,11 +21,17 @@ const Table: React.FC<Props> = ({
     error,
     handleClick,
     toggleSidebar,
+    loading
+
 }) => {
     return (
         <>
             <div className="table-container">
-                {error ? (
+                {loading ? (
+                    <div className='loader'>
+                        <div className='spinner-border text-secondary role="status"'></div>
+                    </div>
+                ) : error ? (
                     <h6>There is no data!</h6>
                 ) : movies.length > 0 ? (
                     <table className="table-content">
@@ -58,9 +64,7 @@ const Table: React.FC<Props> = ({
                         </tbody>
                     </table>
                 ) : (
-                    <div className="loader">
-                        <div className='spinner-border text-secondary role="status"'></div>
-                    </div>
+                    <h6>No movies available!</h6>
                 )}
             </div>
         </>

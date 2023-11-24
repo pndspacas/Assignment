@@ -256,7 +256,7 @@ function App() {
         movieYears={movieYears}
         toggleSidebar={toggleSidebar}
       />
-      <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} />
+      <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} loading={loading} />
 
       {show && (
         <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
