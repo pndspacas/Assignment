@@ -6,6 +6,10 @@ import Table from './components/Table';
 import Description from './components/Description';
 import Footer from './components/Footer';
 
+
+
+
+
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviesId, setMoviesId] = useState([]);
@@ -19,7 +23,7 @@ function App() {
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number | null>(0);
   const itemsPerPage = 1000;
   const totalItems = 1000;
 
@@ -103,9 +107,9 @@ function App() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      // const response = await axios.get(
-      //   `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
-      // );
+      const response = await axios.get(
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
+      );
       const newMovies = response.data.content;
       const moviesId = newMovies.map((movie) => movie.id)
       setMovies(newMovies);
@@ -119,15 +123,15 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData()
+    // fetchData()
   }, [])
 
-  const fetchMovieDetails = async (movieId) => {
+  const fetchMovieDetails = async (movieId: number) => {
     setShow(!show);
     try {
-      // const response = await axios.get(
-      //   `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
-      // );
+      const response = await axios.get(
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
+      );
       setMovieDetails(response.data);
     } catch (error) {
       console.error('Error fetching movie details:', error);
@@ -173,7 +177,7 @@ function App() {
 
   const handleReset = () => {
     setMovies([...originalMovies]);
-    setSelectedYear('');
+    setSelectedYear(null);
     setIsFocused(false);
     setClicked(false);
     setClickedYear(false);
@@ -257,7 +261,7 @@ function App() {
       {show && (
         <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
       )}
-      <Footer scrollToTop={scrollToTop} />
+      {finished && <Footer scrollToTop={scrollToTop} />}
     </div>
   );
 }
