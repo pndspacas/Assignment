@@ -22,7 +22,8 @@ function App() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
-  const [displayMovie, setDisplayMovie] = useState(true);
+  const [loading, setLoading] = useState(false);
+  // const [displayMovie, setDisplayMovie] = useState(true);
   const [error, setError] = useState<any>();
   const totalItems = 1000;
 
@@ -108,13 +109,13 @@ function App() {
     setIsFocused(false);
     setClicked(false);
     setClickedYear(false);
-    setDisplayMovie(true);
+    // setDisplayMovie(true);
   };
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
     setIsFocused(false);
-    setDisplayMovie(false);
+    // setDisplayMovie(false);
     setSidebar(false);
   };
 
@@ -122,7 +123,7 @@ function App() {
     if (!clicked) {
       setClicked(true);
       setIsFocused(false);
-      setDisplayMovie(false);
+      // setDisplayMovie(false);
       setSidebar(false);
     }
   };
@@ -163,6 +164,27 @@ function App() {
   const total = movies.length === totalItems;
 
   console.log(movies);
+
+  // INFINITE SCROLL
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.screenY || document.documentElement.scrollTop;
+
+    console.log('Window Height:', windowHeight);
+    console.log('Document Height:', documentHeight);
+    console.log('Scroll Top:', scrollTop);
+    if (windowHeight + scrollTop >= documentHeight - 20) {
+      // fetchMoreMovies()
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // INFINITE SCROLL
+
   return (
     <>
       <Navbar />
@@ -188,9 +210,7 @@ function App() {
         handleClick={handleClick}
         toggleSidebar={toggleSidebar}
       />
-      {displayMovie && !error && error && (
-        <FetchMovie fetchMoreMovies={fetchMoreMovies} />
-      )}
+      {/* {displayMovie && <FetchMovie fetchMoreMovies={fetchMoreMovies} />} */}
       {show && (
         <Description
           handleClickClose={handleClickClose}
