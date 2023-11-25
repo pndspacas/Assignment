@@ -19,7 +19,7 @@ export interface MovieDetails {
 interface Props {
   handleClickClose: () => void;
   toggleSidebar: () => void;
-  movieDetails: MovieDetails;
+  movieDetails: MovieDetails | null;
 }
 
 const Description: React.FC<Props> = ({
