@@ -1,6 +1,10 @@
 import { FaArrowUp } from 'react-icons/fa6';
 
-const Footer = ({ scrollToTop }) => {
+interface Props {
+  scrollToTop: () => void;
+}
+
+const Footer: React.FC<Props> = ({ scrollToTop }) => {
   return (
     <div className="footer-container">
       <div className="footer-content">

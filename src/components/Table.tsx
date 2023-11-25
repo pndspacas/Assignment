@@ -1,6 +1,6 @@
 import eye from '../assets/eye.svg';
 
-interface Movie {
+export interface Movie {
   id: number;
   rank: number;
   title: string;
@@ -13,7 +13,6 @@ interface Props {
   handleClick: (id: number) => void;
   toggleSidebar: () => void;
   error?: null;
-  loading: (value: boolean) => void;
 }
 
 const Table: React.FC<Props> = ({
@@ -21,13 +20,12 @@ const Table: React.FC<Props> = ({
   error,
   handleClick,
   toggleSidebar,
-  loading,
 }) => {
   return (
     <>
       <div className="table-container">
         {error ? (
-          <h6>Error: No data</h6>
+          <h6>No data available!</h6>
         ) : movies.length > 0 ? (
           <table className="table-content">
             <thead>
@@ -42,10 +40,12 @@ const Table: React.FC<Props> = ({
             <tbody>
               {movies.map((movie: Movie) => (
                 <tr key={movie.id}>
-                  <td>{movie.rank || 'No Data'}</td>
-                  <td>{movie.title || 'No Data'}</td>
-                  <td>{movie.year || 'No Data'}</td>
-                  <td>{movie.revenue ? `$${movie.revenue}` : 'No Data'}</td>
+                  <td>{movie.rank || 'No Ranking Data'}</td>
+                  <td>{movie.title || 'No Title Data'}</td>
+                  <td>{movie.year || 'No Year Data'}</td>
+                  <td>
+                    {movie.revenue ? `$${movie.revenue}` : 'No Revenue Data'}
+                  </td>
                   <td
                     onClick={() => {
                       handleClick(movie.id);

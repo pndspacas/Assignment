@@ -1,12 +1,8 @@
 import reset from '../assets/reset.svg';
 
-interface Years {
-  year: number;
-  id: number;
-}
-
+type Years = number[];
 interface Props {
-  movieYears: Years[];
+  movieYears: Years;
   handleSortRevenue: () => void;
   handleReset: () => void;
   handleFocus: () => void;
@@ -25,16 +21,16 @@ const Filter: React.FC<Props> = ({
   handleSortRevenue,
   handleSortYearAndRevenue,
   handleReset,
-  isFocused,
-  selectedYear,
   handleFocus,
   handleYearSelection,
   handleClicked,
   handleClickedYear,
+  toggleSidebar,
   clicked,
   clickedYear,
   movieYears,
-  toggleSidebar,
+  isFocused,
+  selectedYear,
 }) => {
   return (
     <>
@@ -78,16 +74,16 @@ const Filter: React.FC<Props> = ({
               <div className="container-overlay">
                 <div className="years-container">
                   <h5>Select Year</h5>
-                  {movieYears.map((yearData: Years) => (
+                  {movieYears.map((movie, index) => (
                     <p
-                      key={yearData.id}
+                      key={index}
                       onClick={() => {
-                        handleYearSelection(yearData);
-                        handleSortYearAndRevenue(yearData);
+                        handleYearSelection(movie);
+                        handleSortYearAndRevenue(movie);
                         toggleSidebar();
                       }}
                     >
-                      {yearData}
+                      {movie}
                     </p>
                   ))}
                 </div>

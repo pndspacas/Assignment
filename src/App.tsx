@@ -6,22 +6,24 @@ import Table from './components/Table';
 import Description from './components/Description';
 import Footer from './components/Footer';
 import FetchMovie from './components/FetchMovie';
+import Navbar from './components/Nav';
+import { Movie } from './components/Table';
+import { MovieDetails } from './components/Description';
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [moviesId, setMoviesId] = useState([]);
-  const [originalMovies, setOriginalMovies] = useState([]);
-  const [movieDetails, setMovieDetails] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [, setMoviesId] = useState([]);
+  const [originalMovies, setOriginalMovies] = useState<Movie[]>([]);
+  const [movieDetails, setMovieDetails] = useState<MovieDetails | null>([]);
   const [page, setPage] = useState(0);
   const [sidebar, setSidebar] = useState(true);
-  const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
   const [displayMovie, setDisplayMovie] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>();
   const totalItems = 1000;
 
   const fetchData = async () => {
@@ -30,7 +32,7 @@ function App() {
         `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${10}`
       );
       const newMovies = response.data.content;
-      const moviesId = newMovies.map((movie) => movie.id);
+      const moviesId = newMovies.map((movie: { id: number }) => movie.id);
       setMovies(newMovies);
       setOriginalMovies(newMovies);
       setMoviesId(moviesId);
@@ -43,7 +45,7 @@ function App() {
     fetchData();
   }, []);
 
-  const fetchPage = async (pageNumber) => {
+  const fetchPage = async (pageNumber: number) => {
     try {
       const response = await axios.get(
         `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`
@@ -52,7 +54,7 @@ function App() {
       setMovies((prevMovies) => [...prevMovies, ...newMovies]);
       setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]);
     } catch (error) {
-      console.error('Error fetching movies:', error);
+      setError(error);
     }
   };
 
@@ -62,17 +64,17 @@ function App() {
     fetchPage(nextPage);
   };
 
-  // const fetchMovieDetails = async (movieId: number) => {
-  //   setShow(!show);
-  //   try {
-  //     const response = await axios.get(
-  //       `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
-  //     );
-  //     setMovieDetails(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching movie details:', error);
-  //   }
-  // };
+  const fetchMovieDetails = async (movieId: number) => {
+    setShow(!show);
+    try {
+      const response = await axios.get<MovieDetails>(
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
+      );
+      setMovieDetails(response.data);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   const handleFocus = () => {
     setIsFocused(!isFocused);
@@ -138,7 +140,7 @@ function App() {
   };
 
   const movieYears = movies
-    .map((movie) => movie.year)
+    .map((movie: { year: number }) => movie.year)
     .filter((year, index, years) => years.indexOf(year) === index)
     .sort((a, b) => b - a);
 
@@ -163,30 +165,34 @@ function App() {
   console.log(movies);
   return (
     <div className="app">
-      <Header />
-      <Filter
-        handleSortRevenue={handleSortRevenue}
-        handleSortYearAndRevenue={handleSortYearAndRevenue}
-        handleReset={handleReset}
-        isFocused={isFocused}
-        selectedYear={selectedYear}
-        handleFocus={handleFocus}
-        handleYearSelection={handleYearSelection}
-        handleClicked={handleClicked}
-        handleClickedYear={handleClickedYear}
-        clicked={clicked}
-        clickedYear={clickedYear}
-        movieYears={movieYears}
-        toggleSidebar={toggleSidebar}
-      />
+      <Navbar />
+      {!error && error && <Header />}
+      {!error && error && (
+        <Filter
+          handleSortRevenue={handleSortRevenue}
+          handleSortYearAndRevenue={handleSortYearAndRevenue}
+          handleReset={handleReset}
+          isFocused={isFocused}
+          selectedYear={selectedYear}
+          handleFocus={handleFocus}
+          handleYearSelection={handleYearSelection}
+          handleClicked={handleClicked}
+          handleClickedYear={handleClickedYear}
+          clicked={clicked}
+          clickedYear={clickedYear}
+          movieYears={movieYears}
+          toggleSidebar={toggleSidebar}
+        />
+      )}
       <Table
         movies={movies}
         error={error}
         handleClick={handleClick}
         toggleSidebar={toggleSidebar}
-        loading={setLoading}
       />
-      {displayMovie && <FetchMovie fetchMoreMovies={fetchMoreMovies} />}
+      {displayMovie && !error && error && (
+        <FetchMovie fetchMoreMovies={fetchMoreMovies} />
+      )}
       {show && (
         <Description
           handleClickClose={handleClickClose}

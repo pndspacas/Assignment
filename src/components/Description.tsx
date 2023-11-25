@@ -1,7 +1,7 @@
 import close from '../assets/close.svg';
 import line from '../assets/line.svg';
 
-interface MovieDetails {
+export interface MovieDetails {
   length: number;
   title: string;
   year: number;
@@ -92,7 +92,7 @@ const Description: React.FC<Props> = ({
               </div>
             </>
           ) : (
-            <p>No movie details available</p>
+            <p>No movie details available!</p>
           )}
         </div>
       </div>

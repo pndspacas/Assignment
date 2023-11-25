@@ -19,10 +19,9 @@
 }
 
 .fetch-container button:hover {
-    background: #00BAFF 0% 0% no-repeat padding-box;
-    color: black;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    color: #78849E;
     font-weight: 500;
-    background: #00BAFF 0% 0% no-repeat padding-box;
 }
 
 .fetch-container button:focus {

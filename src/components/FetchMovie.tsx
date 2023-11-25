@@ -1,4 +1,8 @@
-const FetchMovie = ({ fetchMoreMovies }) => {
+interface Props {
+  fetchMoreMovies: () => void;
+}
+
+const FetchMovie: React.FC<Props> = ({ fetchMoreMovies }) => {
   return (
     <div className="fetch-container">
       <button onClick={fetchMoreMovies}>More Movies</button>
