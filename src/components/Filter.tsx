@@ -1,5 +1,5 @@
 import reset from "../assets/reset.svg"
-import "../styles/filter.css"
+
 
 interface Years {
     year: number,
@@ -33,8 +33,9 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                     onClick={() => {
                         handleClicked();
                         handleSortRevenue();
+                        toggleSidebar();
                     }
-                    } className={clicked ? "clicked" : "filter-btn-year"} >
+                    } className={clicked ? "clicked" : "filter-btn"} >
                     Top 10 Revenue
                 </button>
 
@@ -62,22 +63,42 @@ const Filter: React.FC<Props> = ({ handleSortRevenue, handleSortYearAndRevenue, 
                                 {movieYears.map((yearData: Years) => (
                                     <p key={yearData.id}
                                         onClick={() => {
-                                            handleYearSelection(yearData.year);
-                                            handleSortYearAndRevenue(yearData.year);
+                                            handleYearSelection(yearData);
+                                            handleSortYearAndRevenue(yearData);
                                             toggleSidebar();
                                         }}>
-                                        {yearData.year}
+                                        {yearData}
                                     </p>
                                 ))}
                             </div>
 
                         </div > :
-                            <img src={reset} onClick={handleReset} />
+                            <div className='filter-img'>
+                                <img src={reset} onClick={
+                                    () => {
+                                        handleReset()
+                                        toggleSidebar()
+                                    }} />
+                            </div>
                         }
                     </>
                 )}
-                {clickedYear && !isFocused && <img src={reset} onClick={handleReset} />}
-                {clicked && <img src={reset} onClick={handleReset} />}
+                {clickedYear && !isFocused &&
+                    <div className='filter-img'>
+                        <img src={reset} onClick={
+                            () => {
+                                handleReset()
+                                toggleSidebar()
+                            }} />
+                    </div>}
+                {clicked && !isFocused &&
+                    <div className='filter-img'>
+                        <img src={reset} onClick={
+                            () => {
+                                handleReset()
+                                toggleSidebar()
+                            }} />
+                    </div>}
             </div >
         </>
     );

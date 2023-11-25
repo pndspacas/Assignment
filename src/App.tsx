@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import Header from './components/Header';
 import axios from 'axios';
 import Table from './components/Table';
 import Description from './components/Description';
 import Footer from './components/Footer';
+import Loader from './components/Loader';
+import FetchData from './components/FetchMovie';
+import FetchMovie from './components/FetchMovie';
+
 
 
 
@@ -15,100 +19,23 @@ function App() {
   const [moviesId, setMoviesId] = useState([]);
   const [originalMovies, setOriginalMovies] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
-  const [sidebar, setSidebar] = useState(false);
+  const [page, setPage] = useState(0);
+  const [sidebar, setSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
+  const [displayMovie, setDisplayMovie] = useState(true)
   const [error, setError] = useState(null);
-  const [page, setPage] = useState<number | null>(0);
-  const itemsPerPage = 1000;
   const totalItems = 1000;
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
-  //     const newMovies = response.data.content;
-  //     setMovies(newMovies)
-  //     setOriginalMovies(newMovies)
-  //     setLoading(false)
-  //   } catch (error) {
-  //     setError(error);
-  //     setLoading(false);
-  //   }
-  // }
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [])
-
-
-  //MOVIE INFINITE
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`);
-  //       const newMovies = response.data.content;
-  //       setMovies(prev => [...prev, ...newMovies])
-  //       setOriginalMovies(prev => [...prev, ...newMovies])
-  //       setLoading(false)
-  //     } catch (error) {
-  //       setError(error);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [page]);
-  //MOVIE INFINITE
-
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-  // const handleScroll = () => {
-  //   const { scrollTop, clientHeight, scrollHeight } =
-  //     document.documentElement;
-
-  //   if (scrollTop + clientHeight >= scrollHeight) {
-  //     setLoading(true)
-  //     setPage((prev) => prev + 1);
-  //   }
-  // }
-
-  // const fetchData = async (pageNum) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNum}&size=${itemsPerPage}`
-  //     );
-  //     const newMovies = response.data.content;
-
-  //     if (pageNum === 1) {
-  //       setMovies(newMovies);
-  //       setOriginalMovies(newMovies)
-  //     } else {
-  //       setMovies((prevMovies) => [...prevMovies, ...newMovies]); // Concatenate new data with existing data
-  //       setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]); // Concatenate new data with existing data
-  //     }
-  //   } catch (error) {
-  //     setError(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
-  const fetchData = async () => {
-    setLoading(true);
+  const fetchData = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${itemsPerPage}`
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${10}`
       );
       const newMovies = response.data.content;
       const moviesId = newMovies.map((movie) => movie.id)
@@ -118,13 +45,33 @@ function App() {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  });
 
   useEffect(() => {
     // fetchData()
   }, [])
+
+  const fetchPage = async (pageNumber) => {
+
+    try {
+      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`);
+      const newMovies = response.data.content;
+      setMovies(prevMovies => [...prevMovies, ...newMovies]);
+      setOriginalMovies(prevMovies => [...prevMovies, ...newMovies])
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  };
+
+  const fetchMoreMovies = useCallback(() => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchPage(nextPage);
+    setLoading(false)
+  });
+
 
   const fetchMovieDetails = async (movieId: number) => {
     setShow(!show);
@@ -138,26 +85,11 @@ function App() {
     }
   };
 
+
   const handleClick = async (movieId: number) => {
     setShow(!show);
     fetchMovieDetails(movieId);
   };
-
-
-  // useEffect(() => {
-  //   console.log(`Fetching data for page ${page}`);
-  //   fetchData(page); // Fetch data on mount and when page changes
-  // }, [page]);
-
-  // useEffect(() => {
-  //   if (page > 0) {
-  //     fetchData(page);
-  //   }
-  // }, [page]);
-
-  // const handleLoadMore = () => {
-  //   setPage(page + 1); // Update page state
-  // };
 
 
 
@@ -181,6 +113,7 @@ function App() {
     setIsFocused(false);
     setClicked(false);
     setClickedYear(false);
+    setDisplayMovie(true)
   };
 
   const handleFocus = () => {
@@ -190,13 +123,16 @@ function App() {
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
     setIsFocused(false);
+    setDisplayMovie(false)
+    setSidebar(false)
   };
 
   const handleClicked = () => {
     if (!clicked) {
       setClicked(true);
       setIsFocused(false);
-      //setMovies([...originalMovies])
+      setDisplayMovie(false)
+      setSidebar(false)
     }
   };
 
@@ -204,14 +140,13 @@ function App() {
     if (!clickedYear) {
       setClickedYear(true);
       setClicked(false);
+      setSidebar(false)
     }
   };
 
   const handleClickClose = () => {
     setShow(!show)
   }
-
-  const finished = movies.length === totalItems
 
   const movieYears = movies
     .map(movie => movie.year)
@@ -220,7 +155,7 @@ function App() {
 
 
   const toggleSidebar = () => {
-    setSidebar(!sidebar);
+    setSidebar(sidebar)
     if (!sidebar) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -229,17 +164,16 @@ function App() {
   };
 
   const scrollToTop = () => {
-    const moveTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    };
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
+
+  const total = movies.length === totalItems;
 
   return (
     <div className="app">
-
       <Header />
       <Filter
         handleSortRevenue={handleSortRevenue}
@@ -257,14 +191,17 @@ function App() {
         toggleSidebar={toggleSidebar}
       />
       <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} loading={loading} />
-
-      {show && (
-        <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
-      )}
-      {finished && <Footer scrollToTop={scrollToTop} />}
-    </div>
+      {displayMovie && !loading && <FetchMovie fetchMoreMovies={fetchMoreMovies} />}
+      {
+        show && (
+          <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
+        )
+      }
+      {total && <Footer scrollToTop={scrollToTop} />}
+    </div >
   );
 }
 
 export default App
+
 

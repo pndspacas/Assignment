@@ -1,4 +1,4 @@
-import "../styles/footer.css"
+
 import { FaArrowUp } from "react-icons/fa6";
 
 const Footer = ({ scrollToTop }) => {

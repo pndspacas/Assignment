@@ -1,0 +1,31 @@
+.fetch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+.fetch-container button {
+    height: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #78849E66;
+    border-radius: 20px;
+    opacity: 1;
+    font: 16px Roboto;
+    letter-spacing: 0px;
+    color: #78849E;
+    opacity: 1;
+    padding: 8px 12px 8px 12px;
+}
+
+.fetch-container button:hover {
+    background: #00BAFF 0% 0% no-repeat padding-box;
+    color: black;
+    font-weight: 500;
+    background: #00BAFF 0% 0% no-repeat padding-box;
+}
+
+.fetch-container button:focus {
+    outline: none;
+    border: 1px solid #78849E66;
+}

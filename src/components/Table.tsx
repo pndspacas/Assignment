@@ -1,5 +1,4 @@
 import eye from '../assets/eye.svg';
-import '../styles/table.css';
 
 interface Movie {
     id: number;
@@ -14,6 +13,7 @@ interface Props {
     handleClick: (id: number) => void;
     toggleSidebar: () => void
     error?: null;
+    loading?: boolean;
 }
 
 const Table: React.FC<Props> = ({
@@ -46,7 +46,7 @@ const Table: React.FC<Props> = ({
                         </thead>
                         <tbody>
                             {movies.map((movie: Movie) => (
-                                <tr className="movie-id" key={movie.id}>
+                                <tr key={movie.id}>
                                     <td>{movie.rank}</td>
                                     <td>{movie.title}</td>
                                     <td>{movie.year}</td>
@@ -67,6 +67,7 @@ const Table: React.FC<Props> = ({
                     <h6>No movies available!</h6>
                 )}
             </div>
+
         </>
     );
 };

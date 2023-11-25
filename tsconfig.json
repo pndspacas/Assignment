@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "sr2/App2.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

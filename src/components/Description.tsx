@@ -1,6 +1,6 @@
 import close from "../assets/close.svg"
 import line from "../assets/line.svg"
-import "../styles/description.css"
+
 
 interface MovieDetails {
     title: string,

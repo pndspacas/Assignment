@@ -7,8 +7,6 @@
 .table-content {
     border-collapse: collapse;
     width: 100%;
-    overflow: auto;
-
 }
 
 .table-container p {
@@ -52,4 +50,8 @@
 
 .loader {
     font-size: 1px;
+}
+
+img {
+    cursor: pointer;
 }
