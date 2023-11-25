@@ -42,10 +42,10 @@ const Table: React.FC<Props> = ({
             <tbody>
               {movies.map((movie: Movie) => (
                 <tr key={movie.id}>
-                  {movie.rank ? <td>{movie.rank}</td> : <td>No Data</td>}
-                  {movie.title ? <td>{movie.title}</td> : <td>No Data</td>}
-                  {movie.year ? <td>{movie.year}</td> : <td>No Data</td>}
-                  {movie.revenue ? <td>${movie.revenue}</td> : <td>No Data</td>}
+                  <td>{movie.rank || 'No Data'}</td>
+                  <td>{movie.title || 'No Data'}</td>
+                  <td>{movie.year || 'No Data'}</td>
+                  <td>{movie.revenue ? `$${movie.revenue}` : 'No Data'}</td>
                   <td
                     onClick={() => {
                       handleClick(movie.id);

@@ -30,11 +30,11 @@ const Description: React.FC<Props> = ({
   return (
     <div className="description-container">
       <div className="description-content">
-        {movieDetails.length > 1 ? (
-          <>
-            <div className="content">
+        <div className="content">
+          {movieDetails ? (
+            <>
               <div className="title">
-                <h2>{movieDetails.title}</h2>
+                <h2>{movieDetails.title || 'Not Available'}</h2>
                 <div className="close-btn">
                   <img
                     src={close}
@@ -52,66 +52,49 @@ const Description: React.FC<Props> = ({
               </div>
               <div className="top-content">
                 <h3>Year</h3>
-                <p>{movieDetails.year}</p>
+                <p>{movieDetails.year || 'Not Available'}</p>
                 <h3>Genre</h3>
-                <p>{movieDetails.genre}</p>
+                <p>{movieDetails.genre || 'Not Available'}</p>
                 <h3>Description</h3>
-                <p>{movieDetails.description}</p>
+                <p>{movieDetails.description || 'Not Available'}</p>
                 <div>
                   <div className="director-container">
                     <div>
                       <h3>Director</h3>
-                      <p>{movieDetails.director}</p>
+                      <p>{movieDetails.director || 'Not Available'}</p>
                     </div>
                     <div>
                       <h3>Actors</h3>
-                      <p>{movieDetails.actors}</p>
+                      <p>{movieDetails.actors || 'Not Available'}</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="bottom-content">
                 <h3>Run Time</h3>
-                <p>{movieDetails.runtime} mins</p>
+                <p>
+                  {movieDetails.runtime
+                    ? `${movieDetails.runtime} mins`
+                    : 'Not Available'}
+                </p>
                 <h3>Rating</h3>
-                <p>{movieDetails.rating}</p>
+                <p>{movieDetails.rating || 'Not Available'}</p>
                 <h3>Votes</h3>
-                <p>{movieDetails.votes}</p>
+                <p>{movieDetails.votes || 'Not Available'}</p>
                 <h3>Revenue</h3>
-                {movieDetails.revenue ? (
-                  <p>${movieDetails.revenue}</p>
-                ) : (
-                  <p>There is no data</p>
-                )}
+                <p>
+                  {movieDetails.revenue
+                    ? `$${movieDetails.revenue}`
+                    : 'Not Available'}
+                </p>
                 <h3>Metascore</h3>
-                {movieDetails.metascore ? (
-                  <p>{movieDetails.metascore}</p>
-                ) : (
-                  <p>There is no data</p>
-                )}
+                <p>{movieDetails.metascore || 'Not Available'}</p>
               </div>
-            </div>
-          </>
-        ) : (
-          <div className="no-data-content">
-            <div className="no-data-title">
-              <div className="no-data-close-btn">
-                <img
-                  src={close}
-                  alt="close"
-                  onClick={() => {
-                    handleClickClose();
-                    toggleSidebar();
-                  }}
-                />
-                <p>CLOSE</p>
-              </div>
-            </div>
-            <div className="no-data-h6">
-              <h6>No data</h6>
-            </div>
-          </div>
-        )}
+            </>
+          ) : (
+            <p>No movie details available</p>
+          )}
+        </div>
       </div>
     </div>
   );
