@@ -1,8 +1,5 @@
 .loader-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
     font-size: 1px;
-
+    width: 75%;
+    margin: 0 auto;
 }

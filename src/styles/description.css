@@ -12,6 +12,7 @@
 }
 
 
+
 .description-content {
     position: fixed;
     display: flex;
@@ -53,7 +54,6 @@
 .close-btn:hover p {
     color: black;
     font-weight: 900;
-
 }
 
 .content {
@@ -146,4 +146,56 @@ p {
 .bottom-content {
     margin-top: -15px;
     max-height: 500px;
+}
+
+
+.no-data-close-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 40px;
+}
+
+.no-data-close-btn:hover {
+    flex-direction: row-reverse;
+    gap: 5px
+}
+
+.no-data-close-btn:hover p {
+    color: black;
+    font-weight: 900;
+}
+
+.no-data-close-btn img {
+    cursor: pointer
+}
+
+.no-data-close-btn p {
+    text-align: left;
+    font: normal normal normal 8px/16px Roboto;
+    letter-spacing: 0.64px;
+    color: #718FA2;
+    opacity: 1;
+    margin: 0 auto;
+}
+
+.no-data-title {
+    display: flex;
+    justify-content: end;
+    height: 602px;
+
+}
+
+.no-data-content {
+    width: 800px;
+}
+
+.no-data-h6 {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+}
+
+.no-data-h6 h6 {
+    font-size: 32px;
 }

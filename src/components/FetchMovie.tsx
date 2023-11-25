@@ -1,11 +1,9 @@
-
-
 const FetchMovie = ({ fetchMoreMovies }) => {
-    return (
-        <div className='fetch-container'>
-            <button onClick={fetchMoreMovies}>More Movies</button>
-        </div>
-    )
-}
+  return (
+    <div className="fetch-container">
+      <button onClick={fetchMoreMovies}>More Movies</button>
+    </div>
+  );
+};
 
-export default FetchMovie
+export default FetchMovie;

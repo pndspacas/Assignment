@@ -1,12 +1,9 @@
-
 const Loader = () => {
-    return (
+  return (
+    <div className="loader-spinner">
+      <div className='spinner-border text-secondary role="status"'></div>
+    </div>
+  );
+};
 
-        <div className='loader-spinner'>
-            <div className='spinner-border text-secondary role="status"'></div>
-        </div>
-
-    )
-}
-
-export default Loader
+export default Loader;

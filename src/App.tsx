@@ -1,18 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import Header from './components/Header';
 import axios from 'axios';
 import Table from './components/Table';
 import Description from './components/Description';
 import Footer from './components/Footer';
-import Loader from './components/Loader';
-import FetchData from './components/FetchMovie';
 import FetchMovie from './components/FetchMovie';
-
-
-
-
-
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -27,84 +20,84 @@ function App() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
-  const [displayMovie, setDisplayMovie] = useState(true)
+  const [displayMovie, setDisplayMovie] = useState(true);
   const [error, setError] = useState(null);
   const totalItems = 1000;
 
-
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     try {
       const response = await axios.get(
         `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${10}`
       );
       const newMovies = response.data.content;
-      const moviesId = newMovies.map((movie) => movie.id)
+      const moviesId = newMovies.map((movie) => movie.id);
       setMovies(newMovies);
       setOriginalMovies(newMovies);
-      setMoviesId(moviesId)
+      setMoviesId(moviesId);
     } catch (error) {
       setError(error);
-    } finally {
-      setLoading(false)
     }
-  });
+  };
 
   useEffect(() => {
-    // fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const fetchPage = async (pageNumber) => {
-
     try {
-      const response = await axios.get(`http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`);
+      const response = await axios.get(
+        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`
+      );
       const newMovies = response.data.content;
-      setMovies(prevMovies => [...prevMovies, ...newMovies]);
-      setOriginalMovies(prevMovies => [...prevMovies, ...newMovies])
+      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
+      setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]);
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
   };
 
-  const fetchMoreMovies = useCallback(() => {
+  const fetchMoreMovies = () => {
     const nextPage = page + 1;
     setPage(nextPage);
     fetchPage(nextPage);
-    setLoading(false)
-  });
-
-
-  const fetchMovieDetails = async (movieId: number) => {
-    setShow(!show);
-    try {
-      const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
-      );
-      setMovieDetails(response.data);
-    } catch (error) {
-      console.error('Error fetching movie details:', error);
-    }
   };
 
+  // const fetchMovieDetails = async (movieId: number) => {
+  //   setShow(!show);
+  //   try {
+  //     const response = await axios.get(
+  //       `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
+  //     );
+  //     setMovieDetails(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching movie details:', error);
+  //   }
+  // };
+
+  const handleFocus = () => {
+    setIsFocused(!isFocused);
+  };
 
   const handleClick = async (movieId: number) => {
     setShow(!show);
     fetchMovieDetails(movieId);
   };
 
-
-
   const handleSortRevenue = () => {
-    const sortedMovies = [...movies].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
+    const sortedMovies = [...movies]
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 10);
     setMovies(sortedMovies);
   };
 
   const handleSortYearAndRevenue = (year: number) => {
-    const filteredMovies = movies.filter(movie => movie.year === year);
+    const filteredMovies = movies.filter((movie) => movie.year === year);
 
-    const sortedMovies = [...filteredMovies].sort((a, b) => b.revenue - a.revenue).slice(0, 10);
+    const sortedMovies = [...filteredMovies]
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 10);
 
-    setMovies(sortedMovies)
-
+    setMovies(sortedMovies);
   };
 
   const handleReset = () => {
@@ -113,26 +106,22 @@ function App() {
     setIsFocused(false);
     setClicked(false);
     setClickedYear(false);
-    setDisplayMovie(true)
-  };
-
-  const handleFocus = () => {
-    setIsFocused(!isFocused);
+    setDisplayMovie(true);
   };
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
     setIsFocused(false);
-    setDisplayMovie(false)
-    setSidebar(false)
+    setDisplayMovie(false);
+    setSidebar(false);
   };
 
   const handleClicked = () => {
     if (!clicked) {
       setClicked(true);
       setIsFocused(false);
-      setDisplayMovie(false)
-      setSidebar(false)
+      setDisplayMovie(false);
+      setSidebar(false);
     }
   };
 
@@ -140,22 +129,21 @@ function App() {
     if (!clickedYear) {
       setClickedYear(true);
       setClicked(false);
-      setSidebar(false)
+      setSidebar(false);
     }
   };
 
   const handleClickClose = () => {
-    setShow(!show)
-  }
+    setShow(!show);
+  };
 
   const movieYears = movies
-    .map(movie => movie.year)
+    .map((movie) => movie.year)
     .filter((year, index, years) => years.indexOf(year) === index)
     .sort((a, b) => b - a);
 
-
   const toggleSidebar = () => {
-    setSidebar(sidebar)
+    setSidebar(sidebar);
     if (!sidebar) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -166,12 +154,13 @@ function App() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
-  }
+  };
 
   const total = movies.length === totalItems;
 
+  console.log(movies);
   return (
     <div className="app">
       <Header />
@@ -190,18 +179,24 @@ function App() {
         movieYears={movieYears}
         toggleSidebar={toggleSidebar}
       />
-      <Table movies={movies} error={error} handleClick={handleClick} toggleSidebar={toggleSidebar} loading={loading} />
-      {displayMovie && !loading && <FetchMovie fetchMoreMovies={fetchMoreMovies} />}
-      {
-        show && (
-          <Description handleClickClose={handleClickClose} movieDetails={movieDetails} toggleSidebar={toggleSidebar} />
-        )
-      }
+      <Table
+        movies={movies}
+        error={error}
+        handleClick={handleClick}
+        toggleSidebar={toggleSidebar}
+        loading={setLoading}
+      />
+      {displayMovie && <FetchMovie fetchMoreMovies={fetchMoreMovies} />}
+      {show && (
+        <Description
+          handleClickClose={handleClickClose}
+          movieDetails={movieDetails}
+          toggleSidebar={toggleSidebar}
+        />
+      )}
       {total && <Footer scrollToTop={scrollToTop} />}
-    </div >
+    </div>
   );
 }
 
-export default App
-
-
+export default App;
