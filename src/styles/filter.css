@@ -1,31 +1,28 @@
+/* Filter container */
 .filter-container {
+    top: 130px;
+    left: 240px;
     opacity: 1;
     width: 75%;
-    margin: 0 auto;
+    margin: 20px auto 0;
     display: flex;
     align-items: center;
-    justify-content: start;
     gap: 10px;
-    margin-top: 50px;
-
 }
 
-
+/* Filter buttons */
 .filter-btn,
 .filter-btn-year {
     height: 30px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #FFFFFF;
     border: 1px solid #78849E66;
     border-radius: 20px;
     opacity: 1;
-    font: normal normal 300 12px/14px Roboto;
-    letter-spacing: 0px;
+    font: 300 12px Roboto;
+    letter-spacing: 0;
     color: #78849E;
-    opacity: 1;
-    padding: 8px 12px 8px 12px;
+    padding: 8px 12px;
 }
-
-
 
 .clicked:focus {
     outline: none;
@@ -33,47 +30,53 @@
 }
 
 .clicked {
-    background: #00BAFF 0% 0% no-repeat padding-box;
+    background: #00BAFF;
     border: none;
     border-radius: 20px;
     opacity: 1;
     text-align: center;
-    font: 500 12px/14px Roboto;
-    letter-spacing: 0px;
+    font: 500 12px Roboto;
+    letter-spacing: 0;
     color: black;
-    opacity: 1;
-    padding: 8px 12px 8px 12px;
+    padding: 8px 12px;
 }
 
+/* Years container */
+.years-container {
+    position: fixed;
+    top: 150px;
+    left: 460px;
+    width: 178px;
+    background: #FFFFFF;
+    box-shadow: 0px 12px 24px #01243366;
+    opacity: 1;
+    cursor: pointer;
+}
 
 .years-container p {
     text-align: center;
     font: 500 14px Roboto;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     color: #536B7A;
-    opacity: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     height: 17px;
     margin-top: -8px;
-
 }
 
-
-.years-container {
-    position: absolute;
-    top: 150px;
-    left: 460px;
-    width: 178px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 12px 24px #01243366;
-    opacity: 1;
-    cursor: pointer;
-
+.years-container h5 {
+    text-align: center;
+    font: 400 12px Roboto;
+    letter-spacing: 0;
+    color: #78849EB9;
+    height: 14px;
+    margin-top: 16px;
+    margin-bottom: 20px;
 }
 
+/* Container overlay */
 .container-overlay {
     position: fixed;
     top: 0;
@@ -87,18 +90,7 @@
     justify-content: center;
 }
 
-
-.years-container h5 {
-    text-align: center;
-    font: normal normal normal 12px Roboto;
-    letter-spacing: 0px;
-    color: #78849EB9;
-    opacity: 1;
-    height: 14px;
-    margin-top: 16px;
-    margin-bottom: 20px;
-}
-
+/* Filter image */
 .filter-img {
     display: flex;
     align-items: center;
@@ -106,28 +98,21 @@
     cursor: pointer;
 }
 
-.no-year {
-    position: absolute;
-    top: 220px;
-
-}
-
+/* Media queries for different screen sizes */
 @media (min-width: 1440px) {
     .years-container {
-
         left: 490px;
     }
 }
 
 @media (min-width: 1920px) {
     .years-container {
-
         left: 530px;
     }
 }
 
 @media (min-width: 2560px) {
     .years-container {
-        left: 1050px
+        left: 1050px;
     }
 }

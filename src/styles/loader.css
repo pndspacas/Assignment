@@ -1,5 +1,9 @@
-.loader-spinner {
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding-bottom: 50px;
+
     font-size: 1px;
-    width: 75%;
-    margin: 0 auto;
 }

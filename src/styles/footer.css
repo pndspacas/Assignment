@@ -2,24 +2,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    position: relative;
+    height: 50px;
+    padding-bottom: 50px;
 }
-
-
 
 .footer-content {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .footer-content p {
     position: relative;
     left: 20%;
-    font: normal normal normal 24px Roboto;
+    font: normal 24px Roboto;
     color: #386071;
     opacity: 1;
-
+    cursor: pointer;
 }

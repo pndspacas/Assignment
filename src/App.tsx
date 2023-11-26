@@ -6,9 +6,9 @@ import Table from './components/Table';
 import Description from './components/Description';
 import Footer from './components/Footer';
 import FetchMovie from './components/FetchMovie';
-import Navbar from './components/Nav';
 import { Movie } from './components/Table';
 import { MovieDetails } from './components/Description';
+import Loader from './components/Loader';
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -16,44 +16,48 @@ function App() {
   const [originalMovies, setOriginalMovies] = useState<Movie[]>([]);
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>([]);
   const [page, setPage] = useState(0);
-  const [sidebar, setSidebar] = useState(true);
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
   const [clickedYear, setClickedYear] = useState(false);
-  const [loading, setLoading] = useState(false);
-  // const [displayMovie, setDisplayMovie] = useState(true);
+  const [displayMovie, setDisplayMovie] = useState(true);
+  const [sidebar, setSideBar] = useState(true);
   const [error, setError] = useState<any>();
+  const [isFixed, setIsFixed] = useState(false);
+  const [loading, setLoading] = useState(false);
   const totalItems = 1000;
 
-  const fetchData = async () => {
+  const fetchData = async (pageNumber = 0) => {
     try {
-      const response = await axios.get(
-        `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${page}&size=${10}`
-      );
-      const newMovies = response.data.content;
-      const moviesId = newMovies.map((movie: { id: number }) => movie.id);
-      setMovies(newMovies);
-      setOriginalMovies(newMovies);
-      setMoviesId(moviesId);
-    } catch (error) {
-      setError(error);
-    }
-  };
-
-  useEffect(() => {
-    // fetchData();
-  }, []);
-
-  const fetchPage = async (pageNumber: number) => {
-    try {
+      setLoading(true);
       const response = await axios.get(
         `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`
       );
       const newMovies = response.data.content;
-      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
-      setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]);
+      if (pageNumber === 0) {
+        setMovies(newMovies);
+        setOriginalMovies(newMovies);
+        const moviesId = newMovies.map((movie: { id: number }) => movie.id);
+        setMoviesId(moviesId);
+      } else {
+        setMovies((prevMovies) => [...prevMovies, ...newMovies]);
+        setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]);
+      }
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchPage = async (pageNumber: number) => {
+    try {
+      await fetchData(pageNumber);
     } catch (error) {
       setError(error);
     }
@@ -84,6 +88,8 @@ function App() {
   const handleClick = async (movieId: number) => {
     setShow(!show);
     fetchMovieDetails(movieId);
+    setSideBar(false);
+    setIsFixed(false);
   };
 
   const handleSortRevenue = () => {
@@ -94,7 +100,9 @@ function App() {
   };
 
   const handleSortYearAndRevenue = (year: number) => {
-    const filteredMovies = movies.filter((movie) => movie.year === year);
+    const filteredMovies = movies.filter(
+      (movie) => movie.year === year && movie.revenue !== undefined
+    );
 
     const sortedMovies = [...filteredMovies]
       .sort((a, b) => b.revenue - a.revenue)
@@ -109,22 +117,23 @@ function App() {
     setIsFocused(false);
     setClicked(false);
     setClickedYear(false);
-    // setDisplayMovie(true);
+    setDisplayMovie(true);
+    setSideBar(true);
   };
 
   const handleYearSelection = (year: number) => {
     setSelectedYear(year);
     setIsFocused(false);
-    // setDisplayMovie(false);
-    setSidebar(false);
+    setDisplayMovie(false);
+    setSideBar(false);
   };
 
   const handleClicked = () => {
     if (!clicked) {
       setClicked(true);
       setIsFocused(false);
-      // setDisplayMovie(false);
-      setSidebar(false);
+      setDisplayMovie(false);
+      setSideBar(false);
     }
   };
 
@@ -132,12 +141,13 @@ function App() {
     if (!clickedYear) {
       setClickedYear(true);
       setClicked(false);
-      setSidebar(false);
+      setSideBar(false);
     }
   };
 
   const handleClickClose = () => {
     setShow(!show);
+    setSideBar(true);
   };
 
   const movieYears = movies
@@ -146,11 +156,10 @@ function App() {
     .sort((a, b) => b - a);
 
   const toggleSidebar = () => {
-    setSidebar(sidebar);
-    if (!sidebar) {
+    if (sidebar) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = 'scroll';
     }
   };
 
@@ -161,56 +170,72 @@ function App() {
     });
   };
 
-  const total = movies.length === totalItems;
+  useEffect(() => {
+    toggleSidebar;
+  }, []);
 
-  console.log(movies);
+  useEffect(() => {
+    scrollToTop;
+  }, []);
 
-  // INFINITE SCROLL
   const handleScroll = () => {
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    const scrollTop = window.screenY || document.documentElement.scrollTop;
-
-    console.log('Window Height:', windowHeight);
-    console.log('Document Height:', documentHeight);
-    console.log('Scroll Top:', scrollTop);
-    if (windowHeight + scrollTop >= documentHeight - 20) {
-      // fetchMoreMovies()
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > 0) {
+      setIsFixed(true);
+    } else {
+      setIsFixed(false);
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  // INFINITE SCROLL
 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const total = movies.length === totalItems;
+
+  console.log(sidebar);
   return (
     <>
-      <Navbar />
-      <Header />
-      <Filter
-        handleSortRevenue={handleSortRevenue}
-        handleSortYearAndRevenue={handleSortYearAndRevenue}
-        handleReset={handleReset}
-        isFocused={isFocused}
-        selectedYear={selectedYear}
-        handleFocus={handleFocus}
-        handleYearSelection={handleYearSelection}
-        handleClicked={handleClicked}
-        handleClickedYear={handleClickedYear}
-        clicked={clicked}
-        clickedYear={clickedYear}
-        movieYears={movieYears}
-        toggleSidebar={toggleSidebar}
-      />
+      {!error && !total && movies.length > 0 && (
+        <div className={isFixed && !show ? 'fixed-container' : ''}>
+          <Header />
+          <Filter
+            handleSortRevenue={handleSortRevenue}
+            handleSortYearAndRevenue={handleSortYearAndRevenue}
+            handleReset={handleReset}
+            isFocused={isFocused}
+            selectedYear={selectedYear}
+            handleFocus={handleFocus}
+            handleYearSelection={handleYearSelection}
+            handleClicked={handleClicked}
+            handleClickedYear={handleClickedYear}
+            clicked={clicked}
+            clickedYear={clickedYear}
+            movieYears={movieYears}
+            toggleSidebar={toggleSidebar}
+          />
+        </div>
+      )}
       <Table
         movies={movies}
         error={error}
         handleClick={handleClick}
         toggleSidebar={toggleSidebar}
       />
-      {/* {displayMovie && <FetchMovie fetchMoreMovies={fetchMoreMovies} />} */}
+      {!error && displayMovie && !total && movies.length > 0 && (
+        <>
+          {loading ? (
+            <Loader />
+          ) : (
+            <FetchMovie fetchMoreMovies={fetchMoreMovies} />
+          )}
+        </>
+      )}
       {show && (
         <Description
           handleClickClose={handleClickClose}
@@ -224,48 +249,3 @@ function App() {
 }
 
 export default App;
-
-// TENTAR AMANHA A VER SE FUNCIONA IGUAL AO ORIGINAL
-// const fetchData = async (pageNumber = 0) => {
-//   try {
-//     const response = await axios.get(
-//       `http://movie-challenge-api-xpand.azurewebsites.net/api/movies?page=${pageNumber}&size=10`
-//     );
-//     const newMovies = response.data.content;
-//     if (pageNumber === 0) {
-//       setMovies(newMovies);
-//       setOriginalMovies(newMovies);
-//       const moviesId = newMovies.map((movie) => movie.id);
-//       setMoviesId(moviesId);
-//     } else {
-//       setMovies((prevMovies) => [...prevMovies, ...newMovies]);
-//       setOriginalMovies((prevMovies) => [...prevMovies, ...newMovies]);
-//     }
-//   } catch (error) {
-//     setError(error);
-//   }
-// };
-
-// useEffect(() => {
-//   fetchData();
-// }, []);
-
-// const fetchPage = async (pageNumber) => {
-//   try {
-//     await fetchData(pageNumber);
-//   } catch (error) {
-//     setError(error);
-//   }
-// };
-
-// const fetchMovieDetails = async (movieId) => {
-//   setShow(!show);
-//   try {
-//     const response = await axios.get<MovieDetails>(
-//       `http://movie-challenge-api-xpand.azurewebsites.net/api/movies/${movieId}`
-//     );
-//     setMovieDetails(response.data);
-//   } catch (error) {
-//     setError(error);
-//   }
-// };

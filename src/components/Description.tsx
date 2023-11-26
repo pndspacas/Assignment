@@ -28,7 +28,7 @@ const Description: React.FC<Props> = ({
   movieDetails,
 }) => {
   return (
-    <div className="description-container">
+    <div className="description-overlay">
       <div className="description-content">
         <div className="content">
           {movieDetails ? (
@@ -54,7 +54,11 @@ const Description: React.FC<Props> = ({
                 <h3>Year</h3>
                 <p>{movieDetails.year || 'Not Available'}</p>
                 <h3>Genre</h3>
-                <p>{movieDetails.genre || 'Not Available'}</p>
+                <p>
+                  {movieDetails.genre
+                    ? movieDetails.genre.split(',').join(', ')
+                    : 'Not Available'}
+                </p>
                 <h3>Description</h3>
                 <p>{movieDetails.description || 'Not Available'}</p>
                 <div>

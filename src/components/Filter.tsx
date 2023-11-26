@@ -40,7 +40,6 @@ const Filter: React.FC<Props> = ({
           onClick={() => {
             handleClicked();
             handleSortRevenue();
-            toggleSidebar();
           }}
           className={clicked ? 'clicked' : 'filter-btn'}
         >
@@ -80,7 +79,6 @@ const Filter: React.FC<Props> = ({
                       onClick={() => {
                         handleYearSelection(movie);
                         handleSortYearAndRevenue(movie);
-                        toggleSidebar();
                       }}
                     >
                       {movie}
@@ -94,7 +92,6 @@ const Filter: React.FC<Props> = ({
                   src={reset}
                   onClick={() => {
                     handleReset();
-                    toggleSidebar();
                   }}
                 />
               </div>
@@ -118,7 +115,6 @@ const Filter: React.FC<Props> = ({
               src={reset}
               onClick={() => {
                 handleReset();
-                toggleSidebar();
               }}
             />
           </div>

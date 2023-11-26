@@ -11,8 +11,8 @@ export interface Movie {
 interface Props {
   movies: Movie[];
   handleClick: (id: number) => void;
-  toggleSidebar: () => void;
   error?: null;
+  toggleSidebar: () => void;
 }
 
 const Table: React.FC<Props> = ({

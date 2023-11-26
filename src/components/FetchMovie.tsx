@@ -5,7 +5,9 @@ interface Props {
 const FetchMovie: React.FC<Props> = ({ fetchMoreMovies }) => {
   return (
     <div className="fetch-container">
-      <button onClick={fetchMoreMovies}>More Movies</button>
+      <div className="fetch-content">
+        <button onMouseEnter={fetchMoreMovies}>More Movies</button>
+      </div>
     </div>
   );
 };
