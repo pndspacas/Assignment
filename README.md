@@ -1,6 +1,23 @@
-# Assignment
+# Home Assignment
 
-This application is designed to display a list of movies and their details, allowing users to filter and view movie information.
+## Task Overview
+
+This assignment involves building a movie display application with the following features:
+
+### RQ001: Infinite Scroll :x:
+
+Mark requires the ability to view an extensive list of movies using infinite scroll. As he scrolls down, the list should dynamically load additional movies until the end of the list is reached.
+
+### RQ002: Movie Details Popup :heavy_check_mark:
+
+Mark wants to access detailed information about a particular movie by triggering a popup when clicking on a movie within the list. This functionality should provide a seamless way to view specific movie details.
+
+### RQ003: Top Revenue Movies :heavy_check_mark:
+
+Mark wishes to see two specific sets of movies ranked by revenue:
+
+- **Top 10 Movies Overall:** Display the top 10 movies by revenue.
+- **Top 10 Movies by Year:** Enable the display of the top 10 movies by revenue for a chosen year.
 
 # Installation
 1. Clone the repository: ```git clone https://github.com/your-username/assignment.git```
@@ -29,28 +46,57 @@ To start the application, run: ```npm run dev``` <br>This will launch the applic
 - src/App.tsx: Main application logic and state management.
 - src/global.css: Contains all styles that don't need class names.
 
-# Application Structure
-- Top 10 Revenue allows sorting the 10 highest revenues movies.
-- Top 10 Revenue by Year select the year and filter movies by year and revenue.
-- The Filter Icon reset to the original movie list.
-- The Table Icon allows open the movie description.
-- The Description icon closes the description page.
-- More Movies allow fetching more data at the max length of 1000.
-- The Arrow Icon allows scrolling to the top page.
+# User Guide
+### 1. Top 10 Revenue
+This feature facilitates sorting movies based on their revenue, showcasing the ten highest-earning films.
+
+### 2. Top 10 Revenue by Year
+Select a specific year to filter movies by both their release year and revenue, providing a refined list based on user preferences.
+
+### 3. Filter Icon
+Use this icon to reset the applied filters and revert to the original, unfiltered movie list.
+
+### 4. Table Icon
+Access the detailed description of a movie by clicking this icon, allowing users to explore comprehensive information about a selected film.
+
+### 5. Description Icon
+Close the movie description page using this icon, returning to the main interface.
+
+### 6. More Movies
+Fetch additional data, expanding the movie list to a maximum of 1000 entries for a broader selection.
+
+### 7. Arrow Icon
+Effortlessly navigate back to the top of the page by clicking this icon, facilitating a smoother user experience and quicker access.
+
 
 # Bugs & Tricks
 
 ## Bugs
-1. Clicking on the Top 10 Revenue by Year, open the description, close the description, and reset the page to lose the scrolling behavior.
-   - A fixed is refresh the page or click reset, click top 10 revenue, open description, close description, then it will work as expected.
-1. More movies fetch the data only with mouse hover, scrolling won't trigger the loading.
+
+1. **Scrolling Behavior Issue:**
+   Clicking on "Top 10 Revenue by Year," opening and closing the description, and then resetting the page leads to loss of scrolling behavior.
+   - **Quick Fix:** Refresh the page.
+   - **Alternative:** Click reset, then "Top 10 Revenue," open and close the description; it should resume the expected behavior.
+
+2. **More Movies Loading:**
+   The "More Movies" feature fetches data only upon mouse hover, not triggering data loading via scrolling.
 
 ## Tricks
-1. Top 10 Revenue and Top 10 Revenue by Year disables scrolling when visualizing the top 10 and disables fetch more data. 
-2. The Table Icon disabled scroll when the display description has to allow stay on the same height of visualization.
-3. The Description icon enables the scroll to see the list or get more data.
-4. The Filter Container is fixed when scrolling it allows the filtering of the data everywhere on the page.
-5. The Arrow Icon appears when the data has reached the max amount and allows you to scroll to the top.
+
+1. **Top 10 Revenue Scroll Disablement:**
+   Both "Top 10 Revenue" and "Top 10 Revenue by Year" disable scrolling while displaying the top 10 and prevent fetching additional data.
+
+2. **Table Icon and Scroll Disablement:**
+   The Table Icon disables scrolling to maintain the display of descriptions at a consistent height for better visualization.
+
+3. **Description Icon and Scroll Enablement:**
+   Clicking the Description Icon enables scrolling to view the list or fetch more data.
+
+4. **Fixed Filter Container:**
+   The Filter Container remains fixed while scrolling, allowing data filtering from any position on the page.
+
+5. **Max Amount Indicator - Arrow Icon:**
+   An Arrow Icon appears when the data reaches its maximum limit, enabling a quick scroll to the top of the page.
 
 
 
