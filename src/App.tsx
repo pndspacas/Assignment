@@ -14,7 +14,7 @@ function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [, setMoviesId] = useState([]);
   const [originalMovies, setOriginalMovies] = useState<Movie[]>([]);
-  const [movieDetails, setMovieDetails] = useState<MovieDetails | null>([]);
+  const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
   const [page, setPage] = useState(0);
   const [show, setShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -94,7 +94,8 @@ function App() {
 
   const handleSortRevenue = () => {
     const sortedMovies = [...movies]
-      .sort((a, b) => b.revenue - a.revenue)
+      .filter((movie) => movie.revenue !== undefined)
+      .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
       .slice(0, 10);
     setMovies(sortedMovies);
   };
@@ -105,7 +106,7 @@ function App() {
     );
 
     const sortedMovies = [...filteredMovies]
-      .sort((a, b) => b.revenue - a.revenue)
+      .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
       .slice(0, 10);
 
     setMovies(sortedMovies);
@@ -172,7 +173,7 @@ function App() {
 
   useEffect(() => {
     toggleSidebar;
-  }, []);
+  });
 
   useEffect(() => {
     scrollToTop;
@@ -198,7 +199,6 @@ function App() {
 
   const total = movies.length === totalItems;
 
-  console.log(sidebar);
   return (
     <>
       {!error && !total && movies.length > 0 && (

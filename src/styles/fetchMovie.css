@@ -1,4 +1,3 @@
-/* Container for fetch button */
 .fetch-container {
     display: flex;
     align-items: center;
@@ -12,19 +11,7 @@
     font: 16px Roboto;
     letter-spacing: 0;
     color: #78849E;
-    opacity: 1;
     padding: 8px 12px;
-    transition: color 0.3s, font-weight 0.3s;
-}
-
-.fetch-container button:hover {
-    color: #78849E;
-    font-weight: 500;
-}
-
-.fetch-container button:focus {
-    outline: none;
-    border: 1px solid #78849E66;
 }
 
 .fetch-content {
