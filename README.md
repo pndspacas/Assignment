@@ -21,8 +21,8 @@ Mark wishes to see two specific sets of movies ranked by revenue:
 
 # Installation
 1. Clone the repository: ```git clone https://github.com/your-username/assignment.git```
-1. ```cd assignment```
-1. Install dependencies: Ensure you have Node.js and npm installed.
+1. Change Directory: ```cd assignment```
+1. Install dependencies: Ensure you have ```Node.js``` and ```npm``` installed.
 1. Run: ```npm install```
 
 # Usage
@@ -39,12 +39,24 @@ To start the application, run: ```npm run dev``` <br>This will launch the applic
 - TypeScript
 - Axios
 
-# File Structure
-- src/assets: Contains SVG used in the application
-- src/components: Contains various React components used in the application.
-- src/styles: Contains all styles of React components used in the application
-- src/App.tsx: Main application logic and state management.
-- src/global.css: Contains all styles that don't need class names.
+## Directory Structure
+
+### `src/assets`
+Contains SVG files used in the application.
+
+### `src/components`
+Holds various React components used throughout the application.
+
+### `src/styles`
+Houses styles associated with React components.
+
+## Key Files
+
+### `src/App.tsx`
+Main application logic and state management reside in this file.
+
+### `src/global.css`
+Contains global styles that do not rely on specific class names.
 
 # User Guide
 ### 1. Top 10 Revenue
@@ -69,36 +81,9 @@ Fetch additional data, expanding the movie list to a maximum of 1000 entries for
 Effortlessly navigate back to the top of the page by clicking this icon, facilitating a smoother user experience and quicker access.
 
 
-# Bugs & Tricks
-
-## Bugs
-
-1. **Scrolling Behavior Issue:**
-   Clicking on "Top 10 Revenue by Year," opening and closing the description, and then resetting the page leads to loss of scrolling behavior.
-   - **Quick Fix:** Refresh the page.
-   - **Alternative:** Click reset, then "Top 10 Revenue," open and close the description; it should resume the expected behavior.
-
-2. **More Movies Loading:**
-   The "More Movies" feature fetches data only upon mouse hover, not triggering data loading via scrolling.
-
-## Tricks
-
-1. **Top 10 Revenue Scroll Disablement:**
-   Both "Top 10 Revenue" and "Top 10 Revenue by Year" disable scrolling while displaying the top 10 and prevent fetching additional data.
-
-2. **Table Icon and Scroll Disablement:**
-   The Table Icon disables scrolling to maintain the display of descriptions at a consistent height for better visualization.
-
-3. **Description Icon and Scroll Enablement:**
-   Clicking the Description Icon enables scrolling to view the list or fetch more data.
-
-4. **Fixed Filter Container:**
-   The Filter Container remains fixed while scrolling, allowing data filtering from any position on the page.
-
-5. **Max Amount Indicator - Arrow Icon:**
-   An Arrow Icon appears when the data reaches its maximum limit, enabling a quick scroll to the top of the page.
-
-
+# Issues
+### **Data Fetch:**
+The "More Movies" feature fetches data only upon mouse hover, not triggering data loading via scrolling.
 
 # Author
 Pedro Paças
