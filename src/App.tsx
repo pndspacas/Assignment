@@ -126,7 +126,6 @@ function App() {
     setSelectedYear(year);
     setIsFocused(false);
     setDisplayMovie(false);
-    setSideBar(false);
   };
 
   const handleClicked = () => {
