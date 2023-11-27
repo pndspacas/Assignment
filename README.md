@@ -82,7 +82,7 @@ Effortlessly navigate back to the top of the page by clicking this icon, facilit
 
 
 # Issues
-### **Data Fetch:**
+### **Data Fetch**
 The "More Movies" feature fetches data only upon mouse hover, not triggering data loading via scrolling.
 
 # Author
